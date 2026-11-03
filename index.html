@@ -51,7 +51,6 @@
             position: relative;
             z-index: 2;
         }
-        /* نوار بالای صفحه */
         .top-nav {
             display: flex;
             justify-content: space-between;
@@ -101,8 +100,6 @@
             border-color: #fff;
             box-shadow: 0 0 10px currentColor;
         }
-
-        /* هدر لوکس با لوگوی رسمی تویوتا */
         .hero-card {
             background: var(--card-bg);
             backdrop-filter: blur(24px);
@@ -184,8 +181,6 @@
             font-size: 11px;
             color: #94a3b8;
         }
-
-        /* بخش‌بندی و عنوان‌ها */
         .section-head {
             display: flex;
             justify-content: space-between;
@@ -199,15 +194,8 @@
             align-items: center;
             gap: 8px;
         }
-        .section-head h2 i {
-            color: var(--accent);
-        }
-        .section-head span {
-            font-size: 11px;
-            color: #94a3b8;
-        }
-
-        /* فیلتر خودروها */
+        .section-head h2 i { color: var(--accent); }
+        .section-head span { font-size: 11px; color: #94a3b8; }
         .filter-tabs {
             display: flex;
             gap: 8px;
@@ -235,12 +223,10 @@
             border-color: transparent;
             box-shadow: 0 6px 18px var(--accent-glow);
         }
-
-        /* کارت‌های ویترین خودرو */
         .car-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
         .car-card {
             background: var(--card-bg);
@@ -256,23 +242,34 @@
             transform: translateY(-2px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.6);
         }
+        /* استایل عکس ماشین */
+        .car-img-box {
+            width: 100%;
+            height: 165px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #090b10;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .car-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .car-card:hover .car-img-box img {
+            transform: scale(1.06);
+        }
         .car-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
         }
-        .car-name {
-            font-size: 16px;
-            font-weight: 800;
-            color: #fff;
-        }
-        .car-en {
-            font-size: 11px;
-            color: var(--accent);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        .car-name { font-size: 16px; font-weight: 800; color: #fff; }
+        .car-en { font-size: 11px; color: var(--accent); font-weight: 700; letter-spacing: 1px; }
         .badge-status {
             font-size: 10.5px;
             font-weight: 700;
@@ -299,20 +296,14 @@
             color: #cbd5e1;
             text-align: center;
         }
-        .car-specs div i {
-            color: var(--accent);
-            margin-left: 4px;
-        }
+        .car-specs div i { color: var(--accent); margin-left: 4px; }
         .car-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-top: 4px;
         }
-        .car-Zero {
-            font-size: 11.5px;
-            color: #94a3b8;
-        }
+        .car-Zero { font-size: 11.5px; color: #94a3b8; }
         .inquire-btn {
             background: var(--accent-grad);
             color: #fff;
@@ -328,8 +319,6 @@
             gap: 6px;
             box-shadow: 0 5px 15px var(--accent-glow);
         }
-
-        /* سامانه پیگیری وضعیت خودرو (فوق‌العاده برای صاحب کار) */
         .tracker-box {
             background: var(--card-bg);
             border: 1px solid rgba(255,255,255,0.1);
@@ -354,9 +343,7 @@
             text-align: center;
             letter-spacing: 1px;
         }
-        .tracker-input:focus {
-            border-color: var(--accent);
-        }
+        .tracker-input:focus { border-color: var(--accent); }
         .tracker-btn {
             background: var(--accent-grad);
             color: #fff;
@@ -385,9 +372,7 @@
             border-top: 1px solid rgba(255,255,255,0.08);
             animation: fadeIn 0.4s ease;
         }
-        .tracking-result.active {
-            display: block;
-        }
+        .tracking-result.active { display: block; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -421,8 +406,6 @@
             color: #fff;
             box-shadow: 0 0 12px var(--accent-glow);
         }
-
-        /* دکمه‌های ارتباطی VIP */
         .vip-links {
             display: flex;
             flex-direction: column;
@@ -464,17 +447,8 @@
             justify-content: center;
             font-size: 20px;
         }
-        .vip-title {
-            font-size: 14.5px;
-            font-weight: 700;
-            display: block;
-        }
-        .vip-sub {
-            font-size: 11px;
-            color: rgba(255,255,255,0.7);
-        }
-
-        /* منوی شناور پایین صفحه (استایل آیفون) */
+        .vip-title { font-size: 14.5px; font-weight: 700; display: block; }
+        .vip-sub { font-size: 11px; color: rgba(255,255,255,0.7); }
         .bottom-dock {
             position: fixed;
             bottom: 14px;
@@ -508,18 +482,12 @@
             background: none;
             border: none;
         }
-        .dock-item i {
-            font-size: 17px;
-        }
+        .dock-item i { font-size: 17px; }
         .dock-item.active, .dock-item:active {
             color: #fff;
             background: rgba(255,255,255,0.07);
         }
-        .dock-item.active i {
-            color: var(--accent);
-        }
-
-        /* پاپ‌آپ QR */
+        .dock-item.active i { color: var(--accent); }
         .modal {
             position: fixed;
             inset: 0;
@@ -575,11 +543,10 @@
 <body>
 
     <div class="app-shell">
-        <!-- نوار وضعیت و تغییر رنگ -->
         <div class="top-nav">
             <div class="live-status">
                 <span class="pulse-dot"></span>
-                نمایشگاه آنلاین تویوتا لند</span>
+                <span>شوروم آنلاین تویوتا لند</span>
             </div>
             <div class="theme-dots">
                 <div class="t-dot active" style="background:#ef4444; color:#ef4444;" onclick="setTheme('red', this)"></div>
@@ -588,10 +555,8 @@
             </div>
         </div>
 
-        <!-- هدر اصلی با لوگوی سه‌بعدی تویوتا -->
         <div class="hero-card" id="top">
             <div class="toyota-emblem-box">
-                <!-- لوگوی وکتور رسمی تویوتا با افکت کروم متالیک -->
                 <svg viewBox="0 0 240 160" width="115" height="80">
                     <defs>
                         <linearGradient id="chrome" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -601,11 +566,8 @@
                             <stop offset="100%" stop-color="#f8fafc"/>
                         </linearGradient>
                     </defs>
-                    <!-- بیضی بیرونی -->
                     <ellipse cx="120" cy="80" rx="98" ry="62" fill="none" stroke="url(#chrome)" stroke-width="11"/>
-                    <!-- بیضی افقی بالا -->
                     <ellipse cx="120" cy="57" rx="76" ry="29" fill="none" stroke="url(#chrome)" stroke-width="10"/>
-                    <!-- بیضی عمودی وسط -->
                     <ellipse cx="120" cy="80" rx="26" ry="60" fill="none" stroke="url(#chrome)" stroke-width="10"/>
                 </svg>
             </div>
@@ -629,7 +591,6 @@
             </div>
         </div>
 
-        <!-- بخش اول: ویترین خودروهای موجود -->
         <div class="section-head" id="showroom">
             <h2><i class="fa-solid fa-fire-flame-curved"></i> ویترین خودروهای روز</h2>
             <span>بروزرسانی امروز</span>
@@ -643,14 +604,17 @@
         </div>
 
         <div class="car-grid">
-            <!-- خودرو ۱ -->
+            <!-- خودرو ۱: لندکروزر -->
             <div class="car-card" data-cat="suv">
+                <div class="car-img-box">
+                    <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=800&q=80" alt="Land Cruiser">
+                </div>
                 <div class="car-top">
                     <div>
                         <div class="car-name">تویوتا لندکروزر سری ۳۰۰</div>
                         <div class="car-en">LAND CRUISER 300 VXR / GR-S</div>
                     </div>
-                    <span class="badge-status">موجود در نمایشگاه</span>
+                    <span class="badge-status">موجود در شوروم</span>
                 </div>
                 <div class="car-specs">
                     <div><i class="fa-solid fa-gauge-high"></i> ۳.۵ توئین توربو</div>
@@ -666,8 +630,11 @@
                 </div>
             </div>
 
-            <!-- خودرو ۲ -->
+            <!-- خودرو ۲: کرولا کراس -->
             <div class="car-card" data-cat="suv">
+                <div class="car-img-box">
+                    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" alt="Corolla Cross">
+                </div>
                 <div class="car-top">
                     <div>
                         <div class="car-name">تویوتا کرولا کراس هیبرید</div>
@@ -689,8 +656,11 @@
                 </div>
             </div>
 
-            <!-- خودرو ۳ -->
+            <!-- خودرو ۳: کمری -->
             <div class="car-card" data-cat="sedan">
+                <div class="car-img-box">
+                    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80" alt="Camry">
+                </div>
                 <div class="car-top">
                     <div>
                         <div class="car-name">تویوتا کمری / لوین هیبرید</div>
@@ -712,8 +682,11 @@
                 </div>
             </div>
 
-            <!-- خودرو ۴ -->
+            <!-- خودرو ۴: هایلوکس -->
             <div class="car-card" data-cat="pickup">
+                <div class="car-img-box">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80" alt="Hilux">
+                </div>
                 <div class="car-top">
                     <div>
                         <div class="car-name">تویوتا هایلوکس دوکابین</div>
@@ -736,7 +709,6 @@
             </div>
         </div>
 
-        <!-- بخش دوم: سامانه هوشمند پیگیری سفارش و ترخیص خودرو -->
         <div class="section-head" id="tracker">
             <h2><i class="fa-solid fa-radar"></i> رهگیری وضعیت خودروی وارداتی</h2>
             <span>سیستم هوشمند</span>
@@ -778,7 +750,6 @@
             </div>
         </div>
 
-        <!-- بخش سوم: راه‌های ارتباطی مستقیم -->
         <div class="section-head" id="contact">
             <h2><i class="fa-solid fa-headset"></i> ارتباط مستقیم و مشاوره VIP</h2>
             <span>پاسخگویی سریع</span>
@@ -820,7 +791,6 @@
         </div>
     </div>
 
-    <!-- منوی شناور پایین صفحه -->
     <div class="bottom-dock">
         <a href="#top" class="dock-item active">
             <i class="fa-solid fa-house"></i>
@@ -840,7 +810,6 @@
         </button>
     </div>
 
-    <!-- پنجره پاپ‌آپ کارت ویزیت دیجیتال -->
     <div id="qrModal" class="modal" onclick="toggleQR(false)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <h3 style="font-size:17px; margin-bottom:4px;">کارت ویزیت دیجیتال تویوتا لند</h3>
@@ -864,7 +833,7 @@
         function filterCars(cat, btn) {
             document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.querySelectorAll('.car-card').forEach(card => {
+            document.querySelectorAll('.car-card').carEach = document.querySelectorAll('.car-card').forEach(card => {
                 if (cat === 'all' || card.dataset.cat === cat) {
                     card.style.display = 'block';
                 } else {
