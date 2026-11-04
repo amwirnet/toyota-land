@@ -3,33 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>نمایشگاه تویوتا لند قشم | TOYOTA LAND VIP</title>
+    <title>نمایشگاه تویوتا لند قشم | TOYOTA LAND 3D VIP</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --accent: #ef4444;
-            --accent-dark: #991b1b;
-            --accent-glow: rgba(239, 68, 68, 0.45);
-            --accent-soft: rgba(239, 68, 68, 0.12);
-            --accent-grad: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
-            --bg-main: #040508;
-            --card-bg: rgba(13, 16, 25, 0.78);
-            --border-light: rgba(255, 255, 255, 0.09);
+            --neon: #ff1e42;
+            --neon-rgb: 255, 30, 66;
+            --neon-sec: #ff7b00;
+            --grad-main: linear-gradient(135deg, #ff1e42 0%, #99001b 100%);
+            --bg-deep: #030408;
         }
         [data-theme="gold"] {
-            --accent: #f59e0b;
-            --accent-dark: #92400e;
-            --accent-glow: rgba(245, 158, 11, 0.45);
-            --accent-soft: rgba(245, 158, 11, 0.12);
-            --accent-grad: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
+            --neon: #ffb800;
+            --neon-rgb: 255, 184, 0;
+            --neon-sec: #ff5500;
+            --grad-main: linear-gradient(135deg, #ffb800 0%, #945d00 100%);
         }
         [data-theme="cyber"] {
-            --accent: #06b6d4;
-            --accent-dark: #1e40af;
-            --accent-glow: rgba(6, 182, 212, 0.45);
-            --accent-soft: rgba(6, 182, 212, 0.12);
-            --accent-grad: linear-gradient(135deg, #22d3ee 0%, #1d4ed8 100%);
+            --neon: #00f0ff;
+            --neon-rgb: 0, 240, 255;
+            --neon-sec: #7000ff;
+            --grad-main: linear-gradient(135deg, #00f0ff 0%, #0051ff 100%);
         }
         * {
             box-sizing: border-box;
@@ -40,15 +35,16 @@
             scroll-behavior: smooth;
         }
         body {
-            background-color: var(--bg-main);
-            color: #f8fafc;
+            background-color: var(--bg-deep);
+            color: #ffffff;
             min-height: 100vh;
-            padding: 12px 14px 110px;
+            padding: 10px 12px 115px;
             overflow-x: hidden;
             position: relative;
         }
-        /* بوم سه‌بعدی پس‌زمینه */
-        #bgCanvas {
+
+        /* بوم سه‌بعدی پرنور پس‌زمینه */
+        #cyberCanvas {
             position: fixed;
             inset: 0;
             width: 100%;
@@ -56,259 +52,443 @@
             z-index: 0;
             pointer-events: none;
         }
-        .ambient-spotlight {
+        /* هاله‌های نوری متحرک در پس‌زمینه */
+        .aurora-beam {
             position: fixed;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 520px;
-            height: 420px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            filter: blur(70px);
+            top: -15%;
+            left: -10%;
+            width: 120%;
+            height: 55%;
+            background: 
+                radial-gradient(ellipse at 50% 20%, rgba(var(--neon-rgb), 0.35) 0%, transparent 65%),
+                radial-gradient(ellipse at 80% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            filter: blur(45px);
             z-index: 0;
             pointer-events: none;
-            transition: background 0.5s ease;
+            animation: auroraMove 8s ease-in-out infinite alternate;
         }
-        .app-container {
-            max-width: 960px;
+        @keyframes auroraMove {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(25px) scale(1.08); }
+        }
+
+        .app-wrap {
+            max-width: 920px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
 
-        /* نوار اخبار و وضعیت گمرک قشم */
-        .top-ticker {
-            background: rgba(10, 12, 20, 0.85);
+        /* نوار اخبار روان (حل مشکل بریده شدن متن در موبایل) */
+        .marquee-bar {
+            background: rgba(8, 11, 20, 0.88);
             backdrop-filter: blur(16px);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 8px 14px;
-            margin-bottom: 12px;
+            border: 1px solid rgba(var(--neon-rgb), 0.4);
+            border-radius: 14px;
+            padding: 7px 10px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #cbd5e1;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(var(--neon-rgb), 0.2);
+            overflow: hidden;
         }
-        .ticker-badge {
-            background: var(--accent-grad);
+        .m-badge {
+            background: var(--grad-main);
             color: #fff;
-            padding: 3px 9px;
-            border-radius: 8px;
-            font-weight: 800;
             font-size: 10px;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 8px;
             white-space: nowrap;
-            margin-left: 10px;
+            box-shadow: 0 0 12px rgba(var(--neon-rgb), 0.6);
+            z-index: 2;
         }
-        .ticker-text {
+        .m-track {
             flex: 1;
             overflow: hidden;
             white-space: nowrap;
-            text-overflow: ellipsis;
+            position: relative;
+        }
+        .m-content {
+            display: inline-block;
+            font-size: 11.5px;
+            color: #e2e8f0;
+            font-weight: 600;
+            animation: scrollMarquee 18s linear infinite;
+        }
+        @keyframes scrollMarquee {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        /* هدر ناوبری */
-        .navbar {
+        /* هدر کنترل پنل */
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--card-bg);
+            background: rgba(12, 16, 28, 0.82);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--border-light);
-            padding: 12px 16px;
-            border-radius: 22px;
-            margin-bottom: 18px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 14px;
+            border-radius: 18px;
+            margin-bottom: 16px;
         }
-        .nav-status {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .live-dot {
-            width: 9px;
-            height: 9px;
-            background: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 12px #10b981;
-            animation: pulse 1.6s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.5; }
-        }
-        .theme-selector {
+        .brand-status {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,255,255,0.04);
-            padding: 5px 10px;
-            border-radius: 50px;
-            border: 1px solid var(--border-light);
+            font-size: 12px;
+            font-weight: 800;
         }
-        .theme-selector span {
+        .status-led {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 12px #10b981;
+            animation: blink 1.4s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+        .theme-pills {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 5px 9px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .theme-pills span {
             font-size: 10px;
             color: #94a3b8;
-            margin-left: 2px;
         }
         .t-dot {
             width: 18px;
             height: 18px;
             border-radius: 50%;
             cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.25);
             transition: all 0.25s;
         }
         .t-dot.active {
-            transform: scale(1.22);
+            transform: scale(1.25);
             border-color: #fff;
-            box-shadow: 0 0 12px currentColor;
+            box-shadow: 0 0 14px currentColor;
         }
 
-        /* بخش Hero سه‌بعدی */
-        .hero-showcase {
-            background: linear-gradient(180deg, rgba(20, 24, 38, 0.85) 0%, rgba(10, 12, 20, 0.92) 100%);
-            backdrop-filter: blur(28px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+        /* کاکپیت اصلی سه‌بعدی با قاب لیزری چرخان */
+        .hero-cockpit {
+            position: relative;
             border-radius: 32px;
-            padding: 32px 20px 26px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(var(--neon-rgb), 0.7), rgba(255,255,255,0.08), rgba(var(--neon-rgb), 0.7));
+            box-shadow: 0 25px 65px rgba(0,0,0,0.9), 0 0 45px rgba(var(--neon-rgb), 0.3);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .hero-inner {
+            background: radial-gradient(circle at 50% 25%, rgba(var(--neon-rgb), 0.22) 0%, rgba(8, 11, 20, 0.94) 70%);
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 26px 16px 22px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.85), 0 0 45px var(--accent-glow);
-            margin-bottom: 26px;
-            perspective: 1000px;
+            /* بافت فیبر کربن ظریف */
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(var(--neon-rgb), 0.25), transparent 65%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 6px);
         }
-        .hero-showcase::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-        .qeshm-pill {
+
+        .loc-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--accent-soft);
-            border: 1px solid var(--accent);
+            background: rgba(var(--neon-rgb), 0.15);
+            border: 1px solid var(--neon);
             color: #fff;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             padding: 5px 14px;
             border-radius: 50px;
-            margin-bottom: 12px;
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 20px rgba(var(--neon-rgb), 0.4);
+            margin-bottom: 10px;
         }
 
-        /* لوگوی سه‌بعدی تعاملی تویوتا */
-        .logo-3d-stage {
-            width: 145px;
-            height: 105px;
-            margin: 6px auto 14px;
+        /* استیج سه‌بعدی واقعی لوگو + ژیروسکوپ */
+        .stage-3d {
+            width: 190px;
+            height: 170px;
+            margin: 4px auto 12px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform-style: preserve-3d;
-            transition: transform 0.2s ease-out;
+            perspective: 900px;
             cursor: grab;
+            user-select: none;
         }
-        .logo-glow-ring {
+        /* حلقه‌های ژیروسکوپ سه‌بعدی دور لوگو */
+        .gyro-ring {
             position: absolute;
-            width: 130px;
-            height: 130px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            z-index: 0;
-            animation: breathe 3.5s ease-in-out infinite;
+            transform-style: preserve-3d;
+            pointer-events: none;
         }
-        @keyframes breathe {
-            0%, 100% { transform: scale(0.95); opacity: 0.7; }
-            50% { transform: scale(1.15); opacity: 1; }
+        .ring-1 {
+            width: 172px;
+            height: 172px;
+            border: 2px dashed rgba(var(--neon-rgb), 0.65);
+            box-shadow: 0 0 20px rgba(var(--neon-rgb), 0.35), inset 0 0 15px rgba(var(--neon-rgb), 0.25);
+            animation: gyro1 7s linear infinite;
         }
-        .toyota-3d-svg {
+        .ring-2 {
+            width: 148px;
+            height: 148px;
+            border: 2px solid rgba(255, 255, 255, 0.22);
+            border-top-color: var(--neon);
+            border-bottom-color: var(--neon);
+            animation: gyro2 5s linear infinite;
+        }
+        .ring-3 {
+            width: 184px;
+            height: 70px;
+            border: 1.5px solid rgba(var(--neon-rgb), 0.45);
+            animation: gyro3 9s ease-in-out infinite alternate;
+        }
+        @keyframes gyro1 {
+            0% { transform: rotateX(68deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(68deg) rotateY(0deg) rotateZ(360deg); }
+        }
+        @keyframes gyro2 {
+            0% { transform: rotateY(55deg) rotateX(20deg) rotateZ(0deg); }
+            100% { transform: rotateY(55deg) rotateX(20deg) rotateZ(-360deg); }
+        }
+        @keyframes gyro3 {
+            0% { transform: rotateZ(-18deg) rotateX(25deg); }
+            100% { transform: rotateZ(18deg) rotateX(-25deg); }
+        }
+
+        /* هسته ۱۴ لایه سه‌بعدی لوگوی تویوتا */
+        .emblem-3d-core {
+            width: 130px;
+            height: 90px;
             position: relative;
-            z-index: 2;
-            filter: drop-shadow(0 12px 22px rgba(0,0,0,0.9)) drop-shadow(0 0 15px var(--accent-glow));
+            transform-style: preserve-3d;
+            animation: autoSpin3D 6s ease-in-out infinite alternate;
+        }
+        @keyframes autoSpin3D {
+            0% { transform: rotateY(-32deg) rotateX(14deg) rotateZ(-2deg); }
+            50% { transform: rotateY(0deg) rotateX(-12deg) rotateZ(0deg) scale(1.06); }
+            100% { transform: rotateY(32deg) rotateX(14deg) rotateZ(2deg); }
+        }
+        .emblem-layer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        /* پلتفرم هولوگرافیک زیر لوگو */
+        .holo-pedestal {
+            position: absolute;
+            bottom: 4px;
+            width: 130px;
+            height: 26px;
+            background: radial-gradient(ellipse at center, rgba(var(--neon-rgb), 0.75) 0%, transparent 70%);
+            transform: rotateX(75deg);
+            filter: blur(5px);
+            animation: pulseBase 2s infinite alternate;
+        }
+        @keyframes pulseBase {
+            from { opacity: 0.6; transform: rotateX(75deg) scale(0.9); }
+            to { opacity: 1; transform: rotateX(75deg) scale(1.1); }
         }
 
         .hero-title {
-            font-size: 32px;
+            font-size: 31px;
             font-weight: 900;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #ffffff 0%, #cbd5e1 50%, #ffffff 100%);
+            background: linear-gradient(90deg, #fff, var(--neon), #fff);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 5s linear infinite;
-            margin-bottom: 8px;
+            animation: textShine 4s linear infinite;
+            margin-bottom: 6px;
+            text-shadow: 0 10px 30px rgba(var(--neon-rgb), 0.4);
         }
-        @keyframes shine {
+        @keyframes textShine {
             to { background-position: 200% center; }
         }
-        .hero-subtitle {
-            font-size: 13.5px;
-            color: #94a3b8;
-            max-width: 540px;
-            margin: 0 auto 22px;
-            line-height: 1.7;
+        .hero-desc {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.65;
+            max-width: 500px;
+            margin: 0 auto 16px;
         }
-        .hero-badges {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            border-top: 1px solid var(--border-light);
-            padding-top: 18px;
+
+        /* دکمه استارت موتور تعاملی + کاکپیت دور موتور */
+        .ignition-zone {
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 14px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
         }
-        .h-badge {
-            background: rgba(255,255,255,0.025);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 10px 6px;
+        .start-btn {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ff3b5c, #800016 75%);
+            border: 3px solid #cbd5e1;
+            box-shadow: 0 0 25px rgba(var(--neon-rgb), 0.75), inset 0 0 12px rgba(0,0,0,0.8);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            position: relative;
         }
-        .h-badge strong {
-            display: block;
-            font-size: 16px;
+        .start-btn:active, .start-btn.revving {
+            transform: scale(0.93);
+            box-shadow: 0 0 45px var(--neon), inset 0 0 20px #fff;
+        }
+        .start-btn span.en-top {
+            font-size: 8px;
+            letter-spacing: 1px;
+            font-weight: 800;
+            opacity: 0.9;
+        }
+        .start-btn span.en-main {
+            font-size: 11px;
             font-weight: 900;
-            color: var(--accent);
+            letter-spacing: 0.5px;
         }
-        .h-badge span {
+        .start-btn i {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        .rpm-hud {
+            flex: 1;
+            text-align: right;
+        }
+        .rpm-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11.5px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .rpm-val {
+            color: var(--neon);
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .rpm-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .rpm-bar-fill {
+            width: 18%;
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #f59e0b, #ff1e42);
+            border-radius: 50px;
+            transition: width 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+            box-shadow: 0 0 12px var(--neon);
+        }
+        .rpm-hint {
             font-size: 10.5px;
             color: #94a3b8;
         }
 
+        /* باکس‌های آماری ۲×۲ (حل کامل مشکل شکستن متن در ۴ ستون) */
+        .bento-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        @media (min-width: 640px) {
+            .bento-stats { grid-template-columns: repeat(4, 1fr); }
+        }
+        .b-stat {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+        .b-stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(var(--neon-rgb), 0.16);
+            border: 1px solid rgba(var(--neon-rgb), 0.4);
+            color: var(--neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .b-stat strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 900;
+            color: #fff;
+        }
+        .b-stat span {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
         /* تیتر بخش‌ها */
-        .sec-header {
+        .sec-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 28px 4px 14px;
+            margin: 26px 4px 12px;
         }
-        .sec-header h2 {
-            font-size: 18px;
+        .sec-title h2 {
+            font-size: 17.5px;
             font-weight: 900;
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px;
         }
-        .sec-header h2 i {
-            color: var(--accent);
+        .sec-title h2 i {
+            color: var(--neon);
+            text-shadow: 0 0 12px var(--neon);
         }
-        .sec-tag {
-            font-size: 11px;
-            color: #cbd5e1;
-            background: rgba(255,255,255,0.06);
+        .sec-pill {
+            font-size: 10.5px;
+            background: rgba(var(--neon-rgb), 0.15);
+            border: 1px solid rgba(var(--neon-rgb), 0.4);
+            color: #fff;
             padding: 4px 10px;
             border-radius: 50px;
+            font-weight: 700;
         }
 
-        /* تب‌های فیلتر نمایشگاه */
-        .filter-bar {
+        /* فیلتر خودروها */
+        .filter-scroll {
             display: flex;
             gap: 8px;
             overflow-x: auto;
@@ -316,163 +496,190 @@
             margin-bottom: 14px;
             scrollbar-width: none;
         }
-        .filter-bar::-webkit-scrollbar { display: none; }
-        .f-tab {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border-light);
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .f-chip {
+            background: rgba(14, 18, 32, 0.85);
+            border: 1px solid rgba(255,255,255,0.12);
             color: #cbd5e1;
             padding: 9px 16px;
             border-radius: 50px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.25s;
         }
-        .f-tab.active {
-            background: var(--accent-grad);
+        .f-chip.active {
+            background: var(--grad-main);
             color: #fff;
             border-color: transparent;
-            box-shadow: 0 6px 20px var(--accent-glow);
+            box-shadow: 0 6px 20px rgba(var(--neon-rgb), 0.5);
         }
 
-        /* شبکه کارت خودروها (واکنش‌گرا برای موبایل و دسکتاپ) */
-        .showroom-grid {
+        /* کارت‌های خودرو با حاشیه نئونی و تلمتری قدرت موتور */
+        .cars-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 18px;
         }
         @media (min-width: 700px) {
-            .showroom-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .cars-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        .car-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-light);
-            border-radius: 24px;
+        .cyber-card {
+            background: rgba(11, 14, 24, 0.88);
+            backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 26px;
             padding: 16px;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
         }
-        .car-card:hover {
-            border-color: var(--accent);
+        .cyber-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 15%;
+            left: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+            box-shadow: 0 0 15px var(--neon);
+        }
+        .cyber-card:hover {
+            border-color: var(--neon);
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.75), 0 0 25px var(--accent-soft);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 30px rgba(var(--neon-rgb), 0.25);
         }
-        /* قاب استاندارد ۱۶:۱۰ برای نمایش ۱۰۰٪ کامل خودرو */
-        .car-media {
+
+        .car-img-stage {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 10;
             border-radius: 18px;
             overflow: hidden;
-            background: radial-gradient(circle at center, #1e293b 0%, #090b10 100%);
+            background: #060810;
             margin-bottom: 14px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .car-media img {
+        .car-img-stage img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
             transition: transform 0.6s ease;
         }
-        .car-card:hover .car-media img {
-            transform: scale(1.06);
+        .cyber-card:hover .car-img-stage img {
+            transform: scale(1.07);
         }
-        .plate-tag {
+        .badge-plate {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(5, 6, 10, 0.82);
+            background: rgba(4, 6, 12, 0.86);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.2);
             color: #fff;
             font-size: 10.5px;
-            font-weight: 700;
+            font-weight: 800;
             padding: 4px 10px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .plate-tag i { color: var(--accent); }
-        .stock-badge {
+        .badge-plate i { color: var(--neon); }
+        .badge-avail {
             position: absolute;
             bottom: 10px;
             left: 10px;
+            background: rgba(16, 185, 129, 0.92);
+            color: #fff;
             font-size: 10.5px;
-            font-weight: 800;
+            font-weight: 900;
             padding: 4px 11px;
             border-radius: 50px;
-            background: rgba(16, 185, 129, 0.9);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
         }
-        .stock-badge.customs {
-            background: rgba(245, 158, 11, 0.92);
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        .badge-avail.amber {
+            background: rgba(245, 158, 11, 0.95);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
         }
 
-        .car-header {
+        .car-head-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
         }
-        .car-title {
+        .car-fa-name {
             font-size: 17px;
             font-weight: 900;
             color: #fff;
         }
-        .car-sub {
+        .car-en-name {
             font-size: 11px;
-            color: var(--accent);
             font-weight: 800;
-            letter-spacing: 0.8px;
-            margin-top: 2px;
+            color: var(--neon);
+            letter-spacing: 0.7px;
         }
-        .year-pill {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border-light);
+        .model-year {
+            background: rgba(var(--neon-rgb), 0.15);
+            border: 1px solid rgba(var(--neon-rgb), 0.4);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
             padding: 3px 9px;
             border-radius: 8px;
-            font-size: 11px;
-            font-weight: 800;
-            color: #e2e8f0;
         }
 
-        .specs-bar {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+        /* نوارهای گرافیکی قدرت موتور و شتاب (تلمتری اسپرت) */
+        .telemetry-box {
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 10px 8px;
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 14px;
-            margin-bottom: 14px;
-            text-align: center;
-            font-size: 11px;
-            color: #cbd5e1;
+            padding: 10px 12px;
+            margin-bottom: 12px;
         }
-        .specs-bar div i {
-            color: var(--accent);
-            margin-left: 4px;
+        .tele-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+        .tele-row:last-child { margin-bottom: 0; }
+        .tele-label { color: #94a3b8; width: 85px; }
+        .tele-track {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50px;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        .tele-fill {
+            height: 100%;
+            background: var(--grad-main);
+            border-radius: 50px;
+            box-shadow: 0 0 10px var(--neon);
+        }
+        .tele-val {
+            font-weight: 800;
+            color: #fff;
+            width: 72px;
+            text-align: left;
         }
 
-        .card-actions {
+        .card-btns {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
+            grid-template-columns: 1fr 1.25fr;
             gap: 8px;
         }
-        .btn-spec {
+        .btn-glass {
             background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border-light);
-            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.14);
+            color: #fff;
             padding: 10px;
             border-radius: 13px;
             font-size: 12px;
@@ -482,14 +689,9 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: all 0.2s;
         }
-        .btn-spec:hover {
-            border-color: #fff;
-            background: rgba(255,255,255,0.12);
-        }
-        .btn-order {
-            background: var(--accent-grad);
+        .btn-neon {
+            background: var(--grad-main);
             color: #fff;
             border: none;
             padding: 10px;
@@ -501,214 +703,152 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            box-shadow: 0 6px 18px var(--accent-glow);
+            box-shadow: 0 6px 20px rgba(var(--neon-rgb), 0.45);
         }
 
-        /* محاسبه‌گر هوشمند واردات و ترخیص قشم */
-        .calc-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
+        /* بخش محاسبه‌گر و رهگیری */
+        .panel-box {
+            background: rgba(11, 14, 24, 0.88);
+            backdrop-filter: blur(22px);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 26px;
             padding: 20px;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
-        }
-        .calc-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
-        @media (min-width: 650px) {
-            .calc-grid { grid-template-columns: 1fr 1fr; }
+            box-shadow: 0 20px 45px rgba(0,0,0,0.8);
         }
         .calc-select {
             width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.14);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.16);
             color: #fff;
-            padding: 12px 14px;
+            padding: 12px;
             border-radius: 14px;
             font-size: 13px;
+            margin-bottom: 12px;
             outline: none;
         }
-        .calc-select option {
-            background: #0f172a;
-            color: #fff;
-        }
-        .calc-output {
-            background: rgba(255,255,255,0.03);
-            border: 1px dashed var(--accent);
-            border-radius: 18px;
-            padding: 14px;
+        .calc-select option { background: #0b0e18; color: #fff; }
+        .calc-res {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
+            background: rgba(var(--neon-rgb), 0.08);
+            border: 1px dashed var(--neon);
+            border-radius: 16px;
+            padding: 12px 8px;
             text-align: center;
         }
-        .calc-output div span {
-            display: block;
-            font-size: 11px;
-            color: #94a3b8;
-            margin-bottom: 4px;
-        }
-        .calc-output div strong {
-            font-size: 13.5px;
-            color: #fff;
-            font-weight: 900;
-        }
+        .calc-res span { display: block; font-size: 10.5px; color: #94a3b8; margin-bottom: 4px; }
+        .calc-res strong { font-size: 13px; color: #fff; font-weight: 900; }
 
-        /* سامانه رهگیری پرونده گمرکی و شاسی */
-        .tracker-panel {
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 26px;
-            padding: 20px;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
-        }
-        .tracker-bar {
+        .track-row {
             display: flex;
             gap: 8px;
             margin: 12px 0;
         }
-        .tracker-input {
+        .track-inp {
             flex: 1;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.14);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.18);
             border-radius: 14px;
             padding: 12px;
             color: #fff;
-            font-size: 13px;
             text-align: center;
-            letter-spacing: 1px;
+            font-size: 13px;
             outline: none;
         }
-        .tracker-btn {
-            background: var(--accent-grad);
-            color: #fff;
-            border: none;
-            padding: 0 22px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        .sample-codes {
+        .chip-row {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 10px;
         }
-        .code-chip {
-            font-size: 11px;
-            background: var(--accent-soft);
-            border: 1px solid var(--accent);
+        .sample-btn {
+            background: rgba(var(--neon-rgb), 0.14);
+            border: 1px solid var(--neon);
             color: #fff;
-            padding: 4px 10px;
-            border-radius: 8px;
+            font-size: 11px;
+            padding: 5px 11px;
+            border-radius: 10px;
             cursor: pointer;
         }
-        .track-box {
+        .track-steps {
             display: none;
             margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-light);
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
-        .track-box.active { display: block; }
-        .t-step {
+        .track-steps.show { display: block; }
+        .st-line {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 10px;
             font-size: 12.5px;
         }
-        .t-icon {
-            width: 30px;
-            height: 30px;
+        .st-dot {
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.06);
-            color: #64748b;
-            font-size: 12px;
-            flex-shrink: 0;
-        }
-        .t-step.done .t-icon {
             background: rgba(16, 185, 129, 0.2);
             color: #10b981;
             border: 1px solid #10b981;
+            font-size: 12px;
+            flex-shrink: 0;
         }
-        .t-step.current .t-icon {
-            background: var(--accent-grad);
+        .st-line.active .st-dot {
+            background: var(--grad-main);
             color: #fff;
-            box-shadow: 0 0 15px var(--accent-glow);
+            border-color: transparent;
+            box-shadow: 0 0 14px var(--neon);
         }
 
-        /* کارت‌های ارتباط VIP */
-        .contact-grid {
+        /* ارتباط مستقیم */
+        .vip-links {
             display: grid;
             grid-template-columns: 1fr;
             gap: 10px;
         }
         @media (min-width: 650px) {
-            .contact-grid { grid-template-columns: repeat(3, 1fr); }
+            .vip-links { grid-template-columns: repeat(3, 1fr); }
         }
-        .vip-btn {
+        .vip-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
+            background: rgba(11, 14, 24, 0.88);
+            border: 1px solid rgba(255,255,255,0.12);
             padding: 15px 16px;
             border-radius: 20px;
             color: #fff;
             text-decoration: none;
-            transition: all 0.25s;
         }
-        .vip-btn:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        .vip-btn.primary {
-            background: var(--accent-grad);
+        .vip-item.main {
+            background: var(--grad-main);
             border: none;
-            box-shadow: 0 10px 25px var(--accent-glow);
-        }
-        .vip-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .vip-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 13px;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 21px;
+            box-shadow: 0 10px 28px rgba(var(--neon-rgb), 0.45);
         }
 
-        /* داک شناور پایین صفحه */
-        .floating-dock {
+        /* داک شناور پایین */
+        .dock-nav {
             position: fixed;
-            bottom: 14px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 28px);
-            max-width: 460px;
-            background: rgba(10, 13, 22, 0.9);
-            backdrop-filter: blur(22px);
-            border: 1px solid rgba(255,255,255,0.14);
+            width: calc(100% - 24px);
+            max-width: 450px;
+            background: rgba(8, 10, 18, 0.92);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.16);
             border-radius: 24px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             padding: 8px 6px;
-            z-index: 40;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            z-index: 50;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.95);
         }
-        .dock-btn {
+        .d-link {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -716,369 +856,388 @@
             color: #94a3b8;
             text-decoration: none;
             font-size: 10.5px;
-            font-weight: 700;
+            font-weight: 800;
             padding: 6px 0;
             border-radius: 14px;
             background: none;
             border: none;
             cursor: pointer;
         }
-        .dock-btn i { font-size: 17px; }
-        .dock-btn.active, .dock-btn:active {
+        .d-link i { font-size: 17px; }
+        .d-link.active {
             color: #fff;
-            background: rgba(255,255,255,0.07);
+            background: rgba(var(--neon-rgb), 0.18);
         }
-        .dock-btn.active i { color: var(--accent); }
+        .d-link.active i { color: var(--neon); }
 
-        /* مودال برگه کارشناسی و QR */
-        .modal-overlay {
+        /* مودال پاپ‌آپ */
+        .modal-bg {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.84);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(12px);
-            z-index: 60;
+            z-index: 80;
             display: none;
             align-items: center;
             justify-content: center;
             padding: 18px;
         }
-        .modal-overlay.show { display: flex; }
-        .modal-card {
-            background: #101320;
-            border: 1px solid rgba(255,255,255,0.16);
-            border-radius: 28px;
-            padding: 24px;
+        .modal-bg.show { display: flex; }
+        .modal-box {
+            background: #0d111d;
+            border: 1px solid var(--neon);
+            border-radius: 26px;
+            padding: 22px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 0 45px var(--accent-glow);
-            animation: popIn 0.3s ease;
+            max-width: 390px;
+            box-shadow: 0 0 45px rgba(var(--neon-rgb), 0.4);
         }
-        @keyframes popIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .spec-list {
-            margin: 14px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .spec-row {
+        .sp-item {
             display: flex;
             justify-content: space-between;
             font-size: 12.5px;
-            padding: 8px 12px;
+            padding: 9px 12px;
             background: rgba(255,255,255,0.04);
             border-radius: 10px;
-        }
-        .spec-row span { color: #94a3b8; }
-        .spec-row strong { color: #fff; }
-        .qr-box {
-            width: 175px;
-            height: 175px;
-            background: #fff;
-            padding: 10px;
-            border-radius: 16px;
-            margin: 14px auto;
-            display: block;
-        }
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-20px);
-            background: #10b981;
-            color: #fff;
-            padding: 10px 22px;
-            border-radius: 50px;
-            font-size: 12.5px;
-            font-weight: 800;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 80;
-            pointer-events: none;
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bgCanvas"></canvas>
-    <div class="ambient-spotlight"></div>
+    <!-- بوم سه‌بعدی تونل نئونی و افق نمایشگاه -->
+    <canvas id="cyberCanvas"></canvas>
+    <div class="aurora-beam"></div>
 
-    <div class="app-container">
-        <!-- نوار زنده گمرک و منطقه آزاد قشم -->
-        <div class="top-ticker">
-            <span class="ticker-badge">منطقه آزاد قشم</span>
-            <div class="ticker-text">ترخیص مستقیم از بندر بهمن قشم • تحویل فوری خودروهای پلاک منطقه آزاد و پلاک ملی با تضمین اصالت</div>
+    <div class="app-wrap">
+        <!-- نوار روان اخبار گمرک قشم (بدون بریده شدن) -->
+        <div class="marquee-bar">
+            <span class="m-badge"><i class="fa-solid fa-bolt"></i> منطقه آزاد قشم</span>
+            <div class="m-track">
+                <div class="m-content">
+                    ترخیص مستقیم از گمرک بندر بهمن قشم • تحویل فوری خودروهای ۲۰۲۵ پلاک منطقه آزاد قشم و پلاک ملی • امکان سفارش مستقیم از امارات با تضمین کامل اصالت
+                </div>
+            </div>
         </div>
 
-        <!-- نوار ابزار بالا -->
-        <div class="navbar">
-            <div class="nav-status">
-                <span class="live-dot"></span>
+        <!-- هدر بالا -->
+        <div class="top-bar">
+            <div class="brand-status">
+                <span class="status-led"></span>
                 <span>نمایشگاه آنلاین تویوتا لند قشم</span>
             </div>
-            <div class="theme-selector">
-                <span>تم:</span>
-                <div class="t-dot active" style="background:#ef4444; color:#ef4444;" onclick="setTheme('red', this)"></div>
-                <div class="t-dot" style="background:#f59e0b; color:#f59e0b;" onclick="setTheme('gold', this)"></div>
-                <div class="t-dot" style="background:#06b6d4; color:#06b6d4;" onclick="setTheme('cyber', this)"></div>
+            <div class="theme-pills">
+                <span>تم نئون:</span>
+                <div class="t-dot active" style="background:#ff1e42; color:#ff1e42;" onclick="switchTheme('red', 255, 30, 66, this)"></div>
+                <div class="t-dot" style="background:#ffb800; color:#ffb800;" onclick="switchTheme('gold', 255, 184, 0, this)"></div>
+                <div class="t-dot" style="background:#00f0ff; color:#00f0ff;" onclick="switchTheme('cyber', 0, 240, 255, this)"></div>
             </div>
         </div>
 
-        <!-- هدر اصلی با لوگوی سه‌بعدی تعاملی -->
-        <div class="hero-showcase" id="home">
-            <div class="qeshm-pill">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>جزیره قشم • مرکز تخصصی واردات خودروهای روز</span>
-            </div>
-
-            <div class="logo-3d-stage" id="logo3d">
-                <div class="logo-glow-ring"></div>
-                <svg class="toyota-3d-svg" viewBox="0 0 240 160" width="135" height="92">
-                    <defs>
-                        <linearGradient id="metal3d" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="35%" stop-color="#e2e8f0"/>
-                            <stop offset="50%" stop-color="#475569"/>
-                            <stop offset="70%" stop-color="#f8fafc"/>
-                            <stop offset="100%" stop-color="#94a3b8"/>
-                        </linearGradient>
-                    </defs>
-                    <ellipse cx="120" cy="80" rx="98" ry="62" fill="none" stroke="url(#metal3d)" stroke-width="11.5"/>
-                    <ellipse cx="120" cy="57" rx="76" ry="29" fill="none" stroke="url(#metal3d)" stroke-width="10.5"/>
-                    <ellipse cx="120" cy="80" rx="26" ry="60" fill="none" stroke="url(#metal3d)" stroke-width="10.5"/>
-                </svg>
-            </div>
-
-            <h1 class="hero-title">نمایشگاه تویوتا لند</h1>
-            <p class="hero-subtitle">واردات مستقیم، فروش و رهگیری لحظه‌ای خودروهای صفر کیلومتر تویوتا در منطقه آزاد قشم و سراسر کشور</p>
-
-            <div class="hero-badges">
-                <div class="h-badge">
-                    <strong>+۱۵۰</strong>
-                    <span>تحویل موفق</span>
+        <!-- کاکپیت سه‌بعدی اصلی -->
+        <div class="hero-cockpit" id="home">
+            <div class="hero-inner">
+                <div class="loc-badge">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>جزیره قشم • مرکز تخصصی واردات خودروهای VIP</span>
                 </div>
-                <div class="h-badge">
-                    <strong>۱۰۰٪</strong>
-                    <span>تضمین اصالت</span>
-                </div>
-                <div class="h-badge">
-                    <strong>پلاک قشم</strong>
-                    <span>و پلاک ملی</span>
-                </div>
-                <div class="h-badge">
-                    <strong>VIP</strong>
-                    <span>مشاوره مستقیم</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- بخش ۱: ویترین خودروهای نمایشگاه -->
-        <div class="sec-header" id="showroom">
-            <h2><i class="fa-solid fa-car-On"></i> موجودی نمایشگاه تویوتا لند</h2>
-            <span class="sec-tag">تصاویر واقعی مدل‌ها</span>
-        </div>
-
-        <div class="filter-bar">
-            <button class="f-tab active" onclick="filterCars('all', this)">همه خودروها (۶)</button>
-            <button class="f-tab" onclick="filterCars('qeshm', this)">پلاک منطقه آزاد قشم</button>
-            <button class="f-tab" onclick="filterCars('melli', this)">پلاک ملی</button>
-            <button class="f-tab" onclick="filterCars('suv', this)">شاسی‌بلند (SUV)</button>
-            <button class="f-tab" onclick="filterCars('sedan', this)">سدان و هیبرید</button>
-        </div>
-
-        <div class="showroom-grid">
-            <!-- خودرو ۱: لندکروزر ۳۰۰ -->
-            <div class="car-card" data-cat="suv qeshm">
-                <div>
-                    <div class="car-media">
-                        <img data-wiki="Toyota_Land_Cruiser_(J300)" src="https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=900&q=80" alt="Toyota Land Cruiser 300">
-                        <span class="plate-tag"><i class="fa-solid fa-id-card"></i> پلاک منطقه آزاد قشم / گذر</span>
-                        <span class="stock-badge">موجود در نمایشگاه</span>
-                    </div>
-                    <div class="car-header">
-                        <div>
-                            <div class="car-title">تویوتا لندکروزر سری ۳۰۰</div>
-                            <div class="car-sub">LAND CRUISER 300 VXR TWIN-TURBO</div>
-                        </div>
-                        <span class="year-pill">2025</span>
-                    </div>
-                    <div class="specs-bar">
-                        <div><i class="fa-solid fa-gauge-high"></i> ۶ سیلندر توئین‌توربو</div>
-                        <div><i class="fa-solid fa-gears"></i> ۱۰ سرعته اتومات</div>
-                        <div><i class="fa-solid fa-crown"></i> فول VXR</div>
-                    </div>
+                <!-- استیج سه‌بعدی واقعی با ۱۴ لایه حجم فلزی + ۳ حلقه ژیروسکوپ -->
+                <div class="stage-3d" id="stage3d">
+                    <div class="gyro-ring ring-1"></div>
+                    <div class="gyro-ring ring-2"></div>
+                    <div class="gyro-ring ring-3"></div>
+                    <div class="emblem-3d-core" id="emblemCore"></div>
+                    <div class="holo-pedestal"></div>
                 </div>
-                <div class="card-actions">
-                    <button class="btn-spec" onclick="openSpec('تویوتا لندکروزر 300 VXR', '3.5 لیتر V6 توئین توربو (409 اسب بخار)', 'گیربکس 10 سرعته اتوماتیک 4WD', 'رادار کامل TSS، کول‌باکس، مانیتور پشت‌سری، دوربین 360', 'موجود در نمایشگاه قشم - آماده تحویل')">
-                        <i class="fa-solid fa-list-check"></i> برگه آپشن‌ها
+
+                <h1 class="hero-title">نمایشگاه تویوتا لند</h1>
+                <p class="hero-desc">واردات مستقیم، فروش و رهگیری لحظه‌ای خودروهای صفر کیلومتر تویوتا در منطقه آزاد قشم و سراسر کشور</p>
+
+                <!-- دکمه استارت موتور زنده + کیلومترشمار و غرش صوتی -->
+                <div class="ignition-zone">
+                    <button class="start-btn" id="startBtn" onclick="triggerEngine()">
+                        <i class="fa-solid fa-power-off"></i>
+                        <span class="en-top">ENGINE</span>
+                        <span class="en-main">START</span>
                     </button>
-                    <a href="https://t.me/Roodasp" target="_blank" class="btn-order">
+                    <div class="rpm-hud">
+                        <div class="rpm-header">
+                            <span>تلمتری پیشرانه V6 TWIN-TURBO</span>
+                            <span class="rpm-val" id="rpmText">1,200 RPM</span>
+                        </div>
+                        <div class="rpm-bar-bg">
+                            <div class="rpm-bar-fill" id="rpmBar"></div>
+                        </div>
+                        <div class="rpm-hint" id="rpmStatus">روی دکمه START بزنید تا پیشرانه و توربو فعال شود!</div>
+                    </div>
+                </div>
+
+                <!-- باکس‌های آماری ۲×۲ استاندارد و خوانا -->
+                <div class="bento-stats">
+                    <div class="b-stat">
+                        <div class="b-stat-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <div>
+                            <strong>+۱۵۰ دستگاه</strong>
+                            <span>تحویل موفق در قشم</span>
+                        </div>
+                    </div>
+                    <div class="b-stat">
+                        <div class="b-stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <strong>۱۰۰٪ اصالت</strong>
+                            <span>تضمین کارشناسی</span>
+                        </div>
+                    </div>
+                    <div class="b-stat">
+                        <div class="b-stat-icon"><i class="fa-solid fa-id-card"></i></div>
+                        <div>
+                            <strong>پلاک قشم و ملی</strong>
+                            <span>تحویل و شماره‌گذاری</span>
+                        </div>
+                    </div>
+                    <div class="b-stat">
+                        <div class="b-stat-icon"><i class="fa-solid fa-headset"></i></div>
+                        <div>
+                            <strong>پشتیبانی VIP</strong>
+                            <span>مشاوره مستقیم</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش ویترین خودروهای نمایشگاه -->
+        <div class="sec-title" id="showroom">
+            <h2><i class="fa-solid fa-fire-flame-curved"></i> موجودی نمایشگاه تویوتا لند</h2>
+            <span class="sec-pill">تلمتری و تصاویر واقعی</span>
+        </div>
+
+        <div class="filter-scroll">
+            <button class="f-chip active" onclick="filterShowroom('all', this)">همه مدل‌ها (۶)</button>
+            <button class="f-chip" onclick="filterShowroom('qeshm', this)">پلاک منطقه آزاد قشم</button>
+            <button class="f-chip" onclick="filterShowroom('melli', this)">پلاک ملی</button>
+            <button class="f-chip" onclick="filterShowroom('suv', this)">شاسی‌بلند و آفرود</button>
+            <button class="f-chip" onclick="filterShowroom('sedan', this)">سدان و هیبرید</button>
+        </div>
+
+        <div class="cars-grid">
+            <!-- ۱. لندکروزر 300 -->
+            <div class="cyber-card" data-cat="suv qeshm">
+                <div class="car-img-stage">
+                    <img data-wiki="Toyota_Land_Cruiser_(J300)" src="https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=900&q=80" alt="Land Cruiser 300">
+                    <span class="badge-plate"><i class="fa-solid fa-id-card"></i> پلاک منطقه آزاد قشم</span>
+                    <span class="badge-avail">موجود در نمایشگاه</span>
+                </div>
+                <div class="car-head-row">
+                    <div>
+                        <div class="car-fa-name">تویوتا لندکروزر سری ۳۰۰</div>
+                        <div class="car-en-name">LAND CRUISER 300 VXR TWIN-TURBO</div>
+                    </div>
+                    <span class="model-year">2025</span>
+                </div>
+                <div class="telemetry-box">
+                    <div class="tele-row">
+                        <span class="tele-label">قدرت پیشرانه</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:94%;"></div></div>
+                        <span class="tele-val">409 HP</span>
+                    </div>
+                    <div class="tele-row">
+                        <span class="tele-label">سطح آپشن</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:100%;"></div></div>
+                        <span class="tele-val">فول VXR</span>
+                    </div>
+                </div>
+                <div class="card-btns">
+                    <button class="btn-glass" onclick="showSpecs('تویوتا لندکروزر 300 VXR', '3.5 لیتر ۶ سیلندر توئین‌توربو (409 اسب بخار)', '10 سرعته اتوماتیک چهارچرخ محرک', 'رادار کامل TSS، کول‌باکس، مانیتور پشت‌سری، دوربین 360', 'موجود در نمایشگاه قشم')">
+                        <i class="fa-solid fa-sliders"></i> مشخصات
+                    </button>
+                    <a href="https://t.me/Roodasp" target="_blank" class="btn-neon">
                         <span>استعلام قیمت</span>
                         <i class="fa-brands fa-telegram"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- خودرو ۲: کرولا کراس هیبرید -->
-            <div class="car-card" data-cat="suv melli qeshm">
-                <div>
-                    <div class="car-media">
-                        <img data-wiki="Toyota_Corolla_Cross" src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=900&q=80" alt="Toyota Corolla Cross">
-                        <span class="plate-tag"><i class="fa-solid fa-flag"></i> پلاک ملی و پلاک قشم</span>
-                        <span class="stock-badge">آماده تحویل</span>
+            <!-- ۲. کرولا کراس هیبرید -->
+            <div class="cyber-card" data-cat="suv melli qeshm">
+                <div class="car-img-stage">
+                    <img data-wiki="Toyota_Corolla_Cross" src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=900&q=80" alt="Corolla Cross">
+                    <span class="badge-plate"><i class="fa-solid fa-flag"></i> پلاک ملی و پلاک قشم</span>
+                    <span class="badge-avail">آماده تحویل</span>
+                </div>
+                <div class="car-head-row">
+                    <div>
+                        <div class="car-fa-name">تویوتا کرولا کراس هیبرید</div>
+                        <div class="car-en-name">COROLLA CROSS HYBRID 2.0L</div>
                     </div>
-                    <div class="car-header">
-                        <div>
-                            <div class="car-title">تویوتا کرولا کراس هیبرید</div>
-                            <div class="car-sub">COROLLA CROSS HYBRID 2.0L</div>
-                        </div>
-                        <span class="year-pill">2025</span>
+                    <span class="model-year">2025</span>
+                </div>
+                <div class="telemetry-box">
+                    <div class="tele-row">
+                        <span class="tele-label">راندمان سوخت</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:96%;"></div></div>
+                        <span class="tele-val">4.3 لیتر</span>
                     </div>
-                    <div class="specs-bar">
-                        <div><i class="fa-solid fa-leaf"></i> ۲.۰ لیتر هیبرید</div>
-                        <div><i class="fa-solid fa-sun"></i> سقف پانوراما</div>
-                        <div><i class="fa-solid fa-shield-halved"></i> رادار خط‌خوان</div>
+                    <div class="tele-row">
+                        <span class="tele-label">سطح آپشن</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:88%;"></div></div>
+                        <span class="tele-val">پانوراما + رادار</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <button class="btn-spec" onclick="openSpec('تویوتا کرولا کراس هیبرید 2025', '2.0 لیتر هیبرید نسل پنجم (196 اسب بخار)', 'اتوماتیک هوشمند E-CVT', 'سقف پانوراما، کروز کنترل تطبیقی، ترمز اضطراری، کی‌لس', 'موجود در نمایشگاه (سفید صدفی و مشکی)')">
-                        <i class="fa-solid fa-list-check"></i> برگه آپشن‌ها
+                <div class="card-btns">
+                    <button class="btn-glass" onclick="showSpecs('تویوتا کرولا کراس هیبرید 2025', '2.0 لیتر هیبرید نسل پنجم (196 اسب بخار)', 'اتوماتیک هوشمند E-CVT', 'سقف پانوراما، رادار خط‌خوان، کروز کنترل تطبیقی، کی‌لس', 'آماده تحویل فوری')">
+                        <i class="fa-solid fa-sliders"></i> مشخصات
                     </button>
-                    <a href="https://t.me/Roodasp" target="_blank" class="btn-order">
+                    <a href="https://t.me/Roodasp" target="_blank" class="btn-neon">
                         <span>استعلام قیمت</span>
                         <i class="fa-brands fa-telegram"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- خودرو ۳: کمری هیبرید جدید -->
-            <div class="car-card" data-cat="sedan melli qeshm">
-                <div>
-                    <div class="car-media">
-                        <img data-wiki="Toyota_Camry_(XV80)" src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=900&q=80" alt="Toyota Camry">
-                        <span class="plate-tag"><i class="fa-solid fa-flag"></i> پلاک ملی و منطقه آزاد</span>
-                        <span class="stock-badge">موجود در نمایشگاه</span>
+            <!-- ۳. کمری هیبرید ۲۰۲۵ -->
+            <div class="cyber-card" data-cat="sedan melli qeshm">
+                <div class="car-img-stage">
+                    <img data-wiki="Toyota_Camry_(XV80)" src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=900&q=80" alt="Toyota Camry">
+                    <span class="badge-plate"><i class="fa-solid fa-flag"></i> پلاک ملی و پلاک قشم</span>
+                    <span class="badge-avail">موجود در نمایشگاه</span>
+                </div>
+                <div class="car-head-row">
+                    <div>
+                        <div class="car-fa-name">تویوتا کمری هیبرید جدید</div>
+                        <div class="car-en-name">ALL-NEW CAMRY HYBRID XV80</div>
                     </div>
-                    <div class="car-header">
-                        <div>
-                            <div class="car-title">تویوتا کمری هیبرید جدید</div>
-                            <div class="car-sub">ALL-NEW CAMRY HYBRID LUMIERE</div>
-                        </div>
-                        <span class="year-pill">2025</span>
+                    <span class="model-year">2025</span>
+                </div>
+                <div class="telemetry-box">
+                    <div class="tele-row">
+                        <span class="tele-label">قدرت ترکیبی</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:86%;"></div></div>
+                        <span class="tele-val">225 HP</span>
                     </div>
-                    <div class="specs-bar">
-                        <div><i class="fa-solid fa-bolt"></i> موتور هیبرید نسل ۵</div>
-                        <div><i class="fa-solid fa-tv"></i> کاکپیت دیجیتال</div>
-                        <div><i class="fa-solid fa-satellite-dish"></i> فول رادار TSS 3.0</div>
+                    <div class="tele-row">
+                        <span class="tele-label">سطح آپشن</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:94%;"></div></div>
+                        <span class="tele-val">فول رادار TSS</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <button class="btn-spec" onclick="openSpec('تویوتا کمری هیبرید 2025', '2.0 و 2.5 لیتر هیبرید فوق کم‌مصرف', 'اتوماتیک E-CVT با حالت اسپرت', 'هدآپ دیسپلی، سقف پانوراما، صندلی برقی با سردکن و گرمکن', 'موجود در نمایشگاه - تحویل فوری')">
-                        <i class="fa-solid fa-list-check"></i> برگه آپشن‌ها
+                <div class="card-btns">
+                    <button class="btn-glass" onclick="showSpecs('تویوتا کمری هیبرید 2025', '2.0 و 2.5 لیتر هیبرید نسل پنجم', 'اتوماتیک E-CVT با شیفتر فرمان', 'هدآپ دیسپلی، سقف پانوراما، صندلی چرم برقی با سردکن', 'موجود در نمایشگاه')">
+                        <i class="fa-solid fa-sliders"></i> مشخصات
                     </button>
-                    <a href="https://t.me/Roodasp" target="_blank" class="btn-order">
+                    <a href="https://t.me/Roodasp" target="_blank" class="btn-neon">
                         <span>استعلام قیمت</span>
                         <i class="fa-brands fa-telegram"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- خودرو ۴: لندکروزر پرادو ۲۵۰ جدید -->
-            <div class="car-card" data-cat="suv qeshm">
-                <div>
-                    <div class="car-media">
-                        <img data-wiki="Toyota_Land_Cruiser_Prado" src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=80" alt="Toyota Prado 250">
-                        <span class="plate-tag"><i class="fa-solid fa-id-card"></i> پلاک منطقه آزاد قشم</span>
-                        <span class="stock-badge customs">در حال ترخیص گمرک قشم</span>
+            <!-- ۴. پرادو ۲۵۰ جدید -->
+            <div class="cyber-card" data-cat="suv qeshm">
+                <div class="car-img-stage">
+                    <img data-wiki="Toyota_Land_Cruiser_Prado" src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=80" alt="Prado 250">
+                    <span class="badge-plate"><i class="fa-solid fa-id-card"></i> پلاک منطقه آزاد قشم</span>
+                    <span class="badge-avail amber">در حال ترخیص گمرک قشم</span>
+                </div>
+                <div class="car-head-row">
+                    <div>
+                        <div class="car-fa-name">تویوتا پرادو اتاق جدید ۲۵۰</div>
+                        <div class="car-en-name">LAND CRUISER PRADO 250 AWD</div>
                     </div>
-                    <div class="car-header">
-                        <div>
-                            <div class="car-title">تویوتا پرادو اتاق جدید ۲۵۰</div>
-                            <div class="car-sub">LAND CRUISER PRADO 250 FIRST EDITION</div>
-                        </div>
-                        <span class="year-pill">2025</span>
+                    <span class="model-year">2025</span>
+                </div>
+                <div class="telemetry-box">
+                    <div class="tele-row">
+                        <span class="tele-label">قدرت توربو</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:90%;"></div></div>
+                        <span class="tele-val">281 HP</span>
                     </div>
-                    <div class="specs-bar">
-                        <div><i class="fa-solid fa-fire"></i> ۲.۴ توربو چهارچرخ</div>
-                        <div><i class="fa-solid fa-Compass"></i> قفل دیفرانسیل</div>
-                        <div><i class="fa-solid fa-gem"></i> اتاق جدید ۲۰۲۵</div>
+                    <div class="tele-row">
+                        <span class="tele-label">توان آفرود</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:98%;"></div></div>
+                        <span class="tele-val">قفل دیفرانسیل</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <button class="btn-spec" onclick="openSpec('تویوتا پرادو سری 250 مدل 2025', '2.4 لیتر توربوشارژ چهارچرخ محرک دائمی', '8 سرعته اتوماتیک Direct-Shift', 'سیستم Multi-Terrain، دوربین 360 آفرود، گرمکن و سردکن کامل', 'در مرحله ترخیص گمرک بندر بهمن قشم')">
-                        <i class="fa-solid fa-list-check"></i> برگه آپشن‌ها
+                <div class="card-btns">
+                    <button class="btn-glass" onclick="showSpecs('تویوتا پرادو سری 250 مدل 2025', '2.4 لیتر توربوشارژ چهارچرخ محرک', '8 سرعته اتوماتیک Direct-Shift', 'سیستم Multi-Terrain، دوربین 360 آفرود، رادار کامل', 'در مرحله ترخیص گمرک قشم')">
+                        <i class="fa-solid fa-sliders"></i> مشخصات
                     </button>
-                    <a href="https://t.me/Roodasp" target="_blank" class="btn-order">
+                    <a href="https://t.me/Roodasp" target="_blank" class="btn-neon">
                         <span>رزرو و استعلام</span>
                         <i class="fa-brands fa-telegram"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- خودرو ۵: راوفور ادونچر -->
-            <div class="car-card" data-cat="suv melli qeshm">
-                <div>
-                    <div class="car-media">
-                        <img data-wiki="Toyota_RAV4" src="https://images.unsplash.com/photo-1568844293986-8d0400bd4745?auto=format&fit=crop&w=900&q=80" alt="Toyota RAV4">
-                        <span class="plate-tag"><i class="fa-solid fa-flag"></i> پلاک ملی و پلاک قشم</span>
-                        <span class="stock-badge">موجود در نمایشگاه</span>
+            <!-- ۵. راوفور دو دیفرانسیل -->
+            <div class="cyber-card" data-cat="suv melli qeshm">
+                <div class="car-img-stage">
+                    <img data-wiki="Toyota_RAV4" src="https://images.unsplash.com/photo-1568844293986-8d0400bd4745?auto=format&fit=crop&w=900&q=80" alt="Toyota RAV4">
+                    <span class="badge-plate"><i class="fa-solid fa-flag"></i> پلاک ملی و پلاک قشم</span>
+                    <span class="badge-avail">موجود در نمایشگاه</span>
+                </div>
+                <div class="car-head-row">
+                    <div>
+                        <div class="car-fa-name">تویوتا راوفور دو دیفرانسیل</div>
+                        <div class="car-en-name">TOYOTA RAV4 ADVENTURE AWD</div>
                     </div>
-                    <div class="car-header">
-                        <div>
-                            <div class="car-title">تویوتا راوفور (RAV4) دو دیفرانسیل</div>
-                            <div class="car-sub">TOYOTA RAV4 ADVENTURE / HYBRID AWD</div>
-                        </div>
-                        <span class="year-pill">2025</span>
+                    <span class="model-year">2025</span>
+                </div>
+                <div class="telemetry-box">
+                    <div class="tele-row">
+                        <span class="tele-label">سیستم چهارچرخ</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:88%;"></div></div>
+                        <span class="tele-val">AWD هوشمند</span>
                     </div>
-                    <div class="specs-bar">
-                        <div><i class="fa-solid fa-mountain"></i> دو دیفرانسیل AWD</div>
-                        <div><i class="fa-solid fa-chair"></i> صندلی چرم برقی</div>
-                        <div><i class="fa-solid fa-bolt"></i> صندوق برقی</div>
+                    <div class="tele-row">
+                        <span class="tele-label">سطح آپشن</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:92%;"></div></div>
+                        <span class="tele-val">فول رادار</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <button class="btn-spec" onclick="openSpec('تویوتا راوفور 2025 AWD', '2.0 و 2.5 لیتر دو دیفرانسیل هوشمند', 'اتوماتیک با حالات رانندگی برفی و آفرود', 'سقف پانوراما، صندوق عقب برقی، رادار نقطه کور، شارژر وایرلس', 'موجود در نمایشگاه - آماده انتقال سند')">
-                        <i class="fa-solid fa-list-check"></i> برگه آپشن‌ها
+                <div class="card-btns">
+                    <button class="btn-glass" onclick="showSpecs('تویوتا راوفور 2025 دو دیفرانسیل', '2.0 و 2.5 لیتر چهارچرخ محرک AWD', 'اتوماتیک با حالات رانندگی آفرود و برفی', 'سقف پانوراما، صندوق برقی، رادار نقطه کور، دوربین 360', 'موجود در نمایشگاه')">
+                        <i class="fa-solid fa-sliders"></i> مشخصات
                     </button>
-                    <a href="https://t.me/Roodasp" target="_blank" class="btn-order">
+                    <a href="https://t.me/Roodasp" target="_blank" class="btn-neon">
                         <span>استعلام قیمت</span>
                         <i class="fa-brands fa-telegram"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- خودرو ۶: هایلوکس GR Sport -->
-            <div class="car-card" data-cat="suv qeshm melli">
-                <div>
-                    <div class="car-media">
-                        <img data-wiki="Toyota_Hilux" src="https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=900&q=80" alt="Toyota Hilux">
-                        <span class="plate-tag"><i class="fa-solid fa-id-card"></i> پلاک قشم و پلاک ملی</span>
-                        <span class="stock-badge">موجود در نمایشگاه</span>
+            <!-- ۶. هایلوکس GR Sport -->
+            <div class="cyber-card" data-cat="suv qeshm melli">
+                <div class="car-img-stage">
+                    <img data-wiki="Toyota_Hilux" src="https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=900&q=80" alt="Toyota Hilux">
+                    <span class="badge-plate"><i class="fa-solid fa-id-card"></i> پلاک قشم و پلاک ملی</span>
+                    <span class="badge-avail">موجود در نمایشگاه</span>
+                </div>
+                <div class="car-head-row">
+                    <div>
+                        <div class="car-fa-name">تویوتا هایلوکس دوکابین GR</div>
+                        <div class="car-en-name">HILUX GR SPORT 4X4 PICKUP</div>
                     </div>
-                    <div class="car-header">
-                        <div>
-                            <div class="car-title">تویوتا هایلوکس دوکابین GR</div>
-                            <div class="car-sub">HILUX GR SPORT / ADVENTURE 4X4</div>
-                        </div>
-                        <span class="year-pill">2025</span>
+                    <span class="model-year">2025</span>
+                </div>
+                <div class="telemetry-box">
+                    <div class="tele-row">
+                        <span class="tele-label">شاسی و تعلیق</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:97%;"></div></div>
+                        <span class="tele-val">GR Sport 4WD</span>
                     </div>
-                    <div class="specs-bar">
-                        <div><i class="fa-solid fa-truck-monster"></i> شاسی مستقل 4WD</div>
-                        <div><i class="fa-solid fa-fire-flame-simple"></i> موتور ۲.۷ و ۴.۰ لیتر</div>
-                        <div><i class="fa-solid fa-award"></i> کیت اصلی کارخانه</div>
+                    <div class="tele-row">
+                        <span class="tele-label">پیشرانه</span>
+                        <div class="tele-track"><div class="tele-fill" style="width:90%;"></div></div>
+                        <span class="tele-val">2.7L / 4.0L V6</span>
                     </div>
                 </div>
-                <div class="card-actions">
-                    <button class="btn-spec" onclick="openSpec('تویوتا هایلوکس دوکابین 2025', 'موتور 2700 و 4000 سی‌سی شش سیلندر', 'گیربکس اتوماتیک 6 سرعته + کمک سبک و سنگین', 'سیستم تعلیق تقویت‌شده، دوربین 360، تریم داخلی اسپرت', 'موجود در نمایشگاه قشم')">
-                        <i class="fa-solid fa-list-check"></i> برگه آپشن‌ها
+                <div class="card-btns">
+                    <button class="btn-glass" onclick="showSpecs('تویوتا هایلوکس دوکابین 2025', '2700 و 4000 سی‌سی شش سیلندر', '6 سرعته اتوماتیک + کمک سبک و سنگین', 'سیستم تعلیق GR، دوربین 360، رکاب و لاینر فابریک', 'موجود در نمایشگاه قشم')">
+                        <i class="fa-solid fa-sliders"></i> مشخصات
                     </button>
-                    <a href="https://t.me/Roodasp" target="_blank" class="btn-order">
+                    <a href="https://t.me/Roodasp" target="_blank" class="btn-neon">
                         <span>استعلام قیمت</span>
                         <i class="fa-brands fa-telegram"></i>
                     </a>
@@ -1086,132 +1245,89 @@
             </div>
         </div>
 
-        <!-- بخش ۲: محاسبه‌گر هوشمند سفارش و واردات قشم -->
-        <div class="sec-header" id="calculator">
-            <h2><i class="fa-solid fa-calculator"></i> تخمین هوشمند شرایط واردات و تحویل</h2>
-            <span class="sec-tag">ویژه مشتریان قشم و سراسر کشور</span>
+        <!-- بخش محاسبه‌گر هوشمند واردات قشم -->
+        <div class="sec-title">
+            <h2><i class="fa-solid fa-Microchip"></i> تخمین هوشمند شرایط واردات و تحویل</h2>
+            <span class="sec-pill">سیستم آنلاین قشم</span>
         </div>
 
-        <div class="calc-card">
-            <div class="calc-grid">
-                <div>
-                    <label style="font-size:11.5px; color:#94a3b8; display:block; margin-bottom:6px;">۱. انتخاب مدل خودرو:</label>
-                    <select id="calcModel" class="calc-select" onchange="updateCalc()">
-                        <option value="lc300">تویوتا لندکروزر سری ۳۰۰ (2025)</option>
-                        <option value="cross">تویوتا کرولا کراس هیبرید (2025)</option>
-                        <option value="camry">تویوتا کمری هیبرید (2025)</option>
-                        <option value="prado">تویوتا پرادو اتاق جدید ۲۵۰ (2025)</option>
-                        <option value="rav4">تویوتا راوفور دو دیفرانسیل (2025)</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size:11.5px; color:#94a3b8; display:block; margin-bottom:6px;">۲. نوع پلاک و سهمیه ترخیص:</label>
-                    <select id="calcPlate" class="calc-select" onchange="updateCalc()">
-                        <option value="qeshm">پلاک منطقه آزاد قشم (تحویل سریع)</option>
-                        <option value="melli">پلاک ملی (ترخیص قطعی گمرک)</option>
-                        <option value="order">سفارش خرید مستقیم از امارات به قشم</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="calc-output">
-                <div>
-                    <span>زمان تقریبی تحویل</span>
-                    <strong id="outTime" style="color:#10b981;">تحویل فوری (۲ تا ۵ روز)</strong>
-                </div>
-                <div>
-                    <span>محل تحویل و کارشناسی</span>
-                    <strong id="outLoc">نمایشگاه قشم</strong>
-                </div>
-                <div>
-                    <span>وضعیت مدارک</span>
-                    <strong id="outDoc" style="color:var(--accent);">آماده شماره‌گذاری</strong>
-                </div>
+        <div class="panel-box">
+            <select id="plateType" class="calc-select" onchange="calcDelivery()">
+                <option value="qeshm">پلاک منطقه آزاد قشم (تحویل فوری در جزیره)</option>
+                <option value="melli">پلاک ملی (ترخیص قطعی و ارسال به سراسر کشور)</option>
+                <option value="dubai">سفارش خرید مستقیم از دبی به بندر بهمن قشم</option>
+            </select>
+            <div class="calc-res">
+                <div><span>زمان تحویل</span><strong id="cTime" style="color:#10b981;">۲ تا ۵ روز کاری</strong></div>
+                <div><span>محل تحویل</span><strong id="cLoc">نمایشگاه قشم</strong></div>
+                <div><span>وضعیت اسناد</span><strong id="cDoc" style="color:var(--neon);">آماده شماره‌گذاری</strong></div>
             </div>
         </div>
 
-        <!-- بخش ۳: سامانه رهگیری آنلاین پرونده گمرکی و شاسی -->
-        <div class="sec-header" id="tracker">
-            <h2><i class="fa-solid fa-satellite-dish"></i> سامانه رهگیری آنلاین پرونده و ترخیص</h2>
-            <span class="sec-tag">استعلام با کد پرونده</span>
+        <!-- بخش رهگیری پرونده گمرک قشم -->
+        <div class="sec-title" id="tracker">
+            <h2><i class="fa-solid fa-satellite-dish"></i> سامانه رهگیری آنلاین پرونده و شاسی</h2>
+            <span class="sec-pill">گمرک بندر بهمن قشم</span>
         </div>
 
-        <div class="tracker-panel">
-            <p style="font-size:12px; color:#94a3b8; line-height:1.7;">
-                مشتریان محترم می‌توانند با وارد کردن کد پرونده یا ۴ رقم آخر شاسی، وضعیت لحظه‌ای حمل دریایی، تخلیه در گمرک قشم و آماده‌سازی تحویل خودرو را مشاهده نمایند:
+        <div class="panel-box">
+            <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">
+                برای مشاهده وضعیت لحظه‌ای حمل دریایی، ترخیص گمرک قشم و آماده‌سازی تحویل، کد پرونده را وارد کنید یا روی یکی از کدهای نمونه بزنید:
             </p>
-            <div class="tracker-bar">
-                <input type="text" id="trackInput" class="tracker-input" placeholder="کد پرونده (مثلاً TL-9842)">
-                <button class="tracker-btn" onclick="runTracker()">رهگیری</button>
+            <div class="track-row">
+                <input type="text" id="trInput" class="track-inp" placeholder="کد پرونده (مثلاً TL-9842)">
+                <button class="btn-neon" style="padding:0 22px;" onclick="searchTrack()">رهگیری</button>
             </div>
-            <div class="sample-codes">
-                <span class="code-chip" onclick="loadSample('TL-9842', 'تویوتا کرولا کراس ۲۰۲۵', 'آماده تحویل در نمایشگاه قشم', 4)">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> نمونه ۱: TL-9842
+            <div class="chip-row">
+                <span class="sample-btn" onclick="setTrack('TL-9842', 'تویوتا کرولا کراس ۲۰۲۵', 'آماده تحویل در نمایشگاه تویوتا لند قشم')">
+                    <i class="fa-solid fa-bolt"></i> تست کد: TL-9842
                 </span>
-                <span class="code-chip" onclick="loadSample('TL-7710', 'تویوتا لندکروزر 300 VXR', 'در مرحله شماره‌گذاری منطقه آزاد قشم', 3)">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> نمونه ۲: TL-7710
-                </span>
-                <span class="code-chip" onclick="loadSample('TL-5029', 'تویوتا کمری هیبرید ۲۰۲۵', 'تخلیه در اسکله بهمن قشم و قبض انبار', 2)">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> نمونه ۳: TL-5029
+                <span class="sample-btn" onclick="setTrack('TL-7710', 'تویوتا لندکروزر 300 VXR', 'در حال نصب پلاک منطقه آزاد قشم')">
+                    <i class="fa-solid fa-bolt"></i> تست کد: TL-7710
                 </span>
             </div>
-
-            <div id="trackBox" class="track-box">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; font-size:12.5px; background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:12px;">
-                    <span>خودرو: <strong id="trCarName" style="color:#fff;">تویوتا کرولا کراس ۲۰۲۵</strong></span>
-                    <span id="trBadge" style="color:#10b981; font-weight:800;">پرونده فعال</span>
+            <div id="trackOut" class="track-steps">
+                <div style="display:flex; justify-content:space-between; background:rgba(255,255,255,0.05); padding:10px 12px; border-radius:12px; margin-bottom:12px; font-size:12px;">
+                    <span>خودرو: <strong id="tCar">تویوتا کرولا کراس ۲۰۲۵</strong></span>
+                    <span style="color:#10b981; font-weight:800;">پرونده فعال</span>
                 </div>
-                <div id="step1" class="t-step done">
-                    <div class="t-icon"><i class="fa-solid fa-check"></i></div>
-                    <div>۱. خرید، کارشناسی مبدأ و ثبت سفارش واردات</div>
-                </div>
-                <div id="step2" class="t-step done">
-                    <div class="t-icon"><i class="fa-solid fa-ship"></i></div>
-                    <div>۲. حمل دریایی و تخلیه در گمرک بندر بهمن قشم</div>
-                </div>
-                <div id="step3" class="t-step done">
-                    <div class="t-icon"><i class="fa-solid fa-file-shield"></i></div>
-                    <div>۳. انجام تشریفات گمرکی، استاندارد و ترخیص</div>
-                </div>
-                <div id="step4" class="t-step current">
-                    <div class="t-icon"><i class="fa-solid fa-key"></i></div>
-                    <div><strong id="trCurrentText">۴. صدور اسناد و آماده تحویل در نمایشگاه تویوتا لند</strong></div>
-                </div>
+                <div class="st-line"><div class="st-dot"><i class="fa-solid fa-check"></i></div><span>۱. خرید و ثبت سفارش در مبدأ (تکمیل شده)</span></div>
+                <div class="st-line"><div class="st-dot"><i class="fa-solid fa-ship"></i></div><span>۲. حمل دریایی و تخلیه در گمرک بهمن قشم (تکمیل شده)</span></div>
+                <div class="st-line"><div class="st-dot"><i class="fa-solid fa-file-shield"></i></div><span>۳. تشریفات گمرکی و استاندارد (تکمیل شده)</span></div>
+                <div class="st-line active"><div class="st-dot"><i class="fa-solid fa-key"></i></div><strong id="tState">۴. آماده تحویل در نمایشگاه تویوتا لند قشم</strong></div>
             </div>
         </div>
 
-        <!-- بخش ۴: ارتباط مستقیم با مدیریت و مشاوران -->
-        <div class="sec-header" id="contact">
+        <!-- بخش ارتباط مستقیم -->
+        <div class="sec-title">
             <h2><i class="fa-solid fa-headset"></i> ارتباط مستقیم با نمایشگاه تویوتا لند</h2>
-            <span class="sec-tag">پاسخگویی VIP</span>
+            <span class="sec-pill">پاسخگویی VIP</span>
         </div>
 
-        <div class="contact-grid">
-            <a href="https://t.me/Roodasp" target="_blank" class="vip-btn primary">
-                <div class="vip-info">
-                    <div class="vip-icon"><i class="fa-brands fa-telegram"></i></div>
+        <div class="vip-links">
+            <a href="https://t.me/Roodasp" target="_blank" class="vip-item main">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-brands fa-telegram" style="font-size:26px;"></i>
                     <div>
                         <strong style="font-size:14px; display:block;">کانال و مشاوره تلگرام</strong>
-                        <span style="font-size:11px; opacity:0.85;">استعلام موجودی و لیست قیمت روز</span>
+                        <span style="font-size:11px; opacity:0.9;">استعلام قیمت روز و موجودی نمایشگاه</span>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-left"></i>
             </a>
-
-            <a href="https://wa.me/" target="_blank" class="vip-btn">
-                <div class="vip-info">
-                    <div class="vip-icon" style="color:#22c55e;"><i class="fa-brands fa-whatsapp"></i></div>
+            <a href="https://wa.me/" target="_blank" class="vip-item">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-brands fa-whatsapp" style="font-size:26px; color:#22c55e;"></i>
                     <div>
-                        <strong style="font-size:14px; display:block;">خط ویژه واتساپ</strong>
-                        <span style="font-size:11px; color:#94a3b8;">ارسال مدارک و پیگیری پرونده</span>
+                        <strong style="font-size:14px; display:block;">پشتیبانی واتساپ</strong>
+                        <span style="font-size:11px; color:#94a3b8;">ارسال مدارک و پیگیری سفارش</span>
                     </div>
                 </div>
                 <i class="fa-solid fa-chevron-left"></i>
             </a>
-
-            <a href="https://instagram.com" target="_blank" class="vip-btn">
-                <div class="vip-info">
-                    <div class="vip-icon" style="color:#ec4899;"><i class="fa-brands fa-instagram"></i></div>
+            <a href="https://instagram.com" target="_blank" class="vip-item">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-brands fa-instagram" style="font-size:26px; color:#ec4899;"></i>
                     <div>
                         <strong style="font-size:14px; display:block;">اینستاگرام نمایشگاه</strong>
                         <span style="font-size:11px; color:#94a3b8;">ویدیو تحویل خودروها در قشم</span>
@@ -1222,218 +1338,282 @@
         </div>
     </div>
 
-    <!-- منوی شناور اپلیکیشنی -->
-    <div class="floating-dock">
-        <a href="#home" class="dock-btn active">
-            <i class="fa-solid fa-house"></i>
-            <span>نمایشگاه</span>
-        </a>
-        <a href="#showroom" class="dock-btn">
-            <i class="fa-solid fa-car-side"></i>
-            <span>خودروها</span>
-        </a>
-        <a href="#tracker" class="dock-btn">
-            <i class="fa-solid fa-radar"></i>
-            <span>رهگیری شاسی</span>
-        </a>
-        <button class="dock-btn" onclick="openQR(true)">
-            <i class="fa-solid fa-qrcode"></i>
-            <span>کارت دیجیتال</span>
-        </button>
+    <!-- منوی شناور پایین -->
+    <div class="dock-nav">
+        <a href="#home" class="d-link active"><i class="fa-solid fa-house"></i><span>نمایشگاه</span></a>
+        <a href="#showroom" class="d-link"><i class="fa-solid fa-car-side"></i><span>خودروها</span></a>
+        <a href="#tracker" class="d-link"><i class="fa-solid fa-radar"></i><span>رهگیری شاسی</span></a>
+        <button class="d-link" onclick="toggleModal('qrModal', true)"><i class="fa-solid fa-qrcode"></i><span>کارت دیجیتال</span></button>
     </div>
 
-    <!-- مودال برگه کارشناسی و آپشن‌های خودرو -->
-    <div id="specModal" class="modal-overlay" onclick="closeSpec()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <h3 id="spTitle" style="font-size:17px; font-weight:900; color:var(--accent);">مشخصات فنی خودرو</h3>
-                <i class="fa-solid fa-circle-xmark" style="font-size:20px; color:#64748b; cursor:pointer;" onclick="closeSpec()"></i>
-            </div>
-            <div class="spec-list">
-                <div class="spec-row"><span>پیشرانه:</span><strong id="spEngine">-</strong></div>
-                <div class="spec-row"><span>گیربکس و انتقال قدرت:</span><strong id="spGear">-</strong></div>
-                <div class="spec-row"><span>آپشن‌های شاخص:</span><strong id="spOpt">-</strong></div>
-                <div class="spec-row"><span>وضعیت تحویل:</span><strong id="spStatus" style="color:#10b981;">-</strong></div>
-            </div>
-            <a href="https://t.me/Roodasp" target="_blank" class="btn-order" style="width:100%; padding:12px; margin-top:10px;">
-                <span>دریافت قیمت روز در تلگرام</span>
+    <!-- مودال مشخصات خودرو -->
+    <div id="specModal" class="modal-bg" onclick="toggleModal('specModal', false)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="mTitle" style="font-size:17px; font-weight:900; color:var(--neon); margin-bottom:12px;">مشخصات خودرو</h3>
+            <div class="sp-item"><span>پیشرانه:</span><strong id="mEng">-</strong></div>
+            <div class="sp-item"><span>گیربکس:</span><strong id="mGear">-</strong></div>
+            <div class="sp-item"><span>آپشن‌ها:</span><strong id="mOpt">-</strong></div>
+            <div class="sp-item"><span>وضعیت:</span><strong id="mStat" style="color:#10b981;">-</strong></div>
+            <a href="https://t.me/Roodasp" target="_blank" class="btn-neon" style="width:100%; padding:12px; margin-top:10px;">
+                <span>استعلام قیمت در تلگرام</span>
                 <i class="fa-brands fa-telegram"></i>
             </a>
         </div>
     </div>
 
-    <!-- مودال کارت ویزیت دیجیتال (QR) -->
-    <div id="qrModal" class="modal-overlay" onclick="openQR(false)">
-        <div class="modal-card" style="text-align:center;" onclick="event.stopPropagation()">
-            <h3 style="font-size:17px; font-weight:900; margin-bottom:4px;">کارت دیجیتال نمایشگاه تویوتا لند</h3>
-            <p style="font-size:11.5px; color:#94a3b8;">اسکن با دوربین گوشی برای باز شدن سایت نمایشگاه</p>
-            <img class="qr-box" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://amwirnet.github.io/toyota-land/" alt="QR Code">
-            <button class="tracker-btn" style="width:100%; padding:12px; margin-bottom:8px;" onclick="copyLink()">کپی لینک اختصاصی سایت</button>
-            <button class="btn-spec" style="width:100%;" onclick="openQR(false)">بستن پنجره</button>
+    <!-- مودال بارکد QR -->
+    <div id="qrModal" class="modal-bg" onclick="toggleModal('qrModal', false)">
+        <div class="modal-box" style="text-align:center;" onclick="event.stopPropagation()">
+            <h3 style="font-size:17px; font-weight:900; margin-bottom:6px;">کارت دیجیتال نمایشگاه تویوتا لند</h3>
+            <p style="font-size:11.5px; color:#94a3b8;">اسکن با دوربین گوشی برای باز شدن سایت</p>
+            <img style="width:175px; height:175px; background:#fff; padding:10px; border-radius:16px; margin:14px auto;" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://amwirnet.github.io/toyota-land/" alt="QR">
+            <button class="btn-glass" style="width:100%;" onclick="toggleModal('qrModal', false)">بستن</button>
         </div>
     </div>
 
-    <div id="toast" class="toast">لینک نمایشگاه تویوتا لند کپی شد!</div>
-
     <script>
-        // ۱. موتور هوشمند بارگذاری تصاویر ۱۰۰٪ واقعی و رسمی هر مدل تویوتا
+        // ۱. ساخت لوگوی واقعاً سه‌بعدی با ۱۴ لایه حجم فلزی در محور Z
+        const core = document.getElementById('emblemCore');
+        const totalLayers = 14;
+        for (let i = 0; i < totalLayers; i++) {
+            const z = (i - totalLayers / 2) * 1.4;
+            const isFront = i === totalLayers - 1;
+            const isBack = i === 0;
+            const strokeColor = isFront ? 'url(#chromeFront)' : (isBack ? '#ffffff' : '#334155');
+            const layer = document.createElement('div');
+            layer.className = 'emblem-layer';
+            layer.style.transform = `translateZ(${z}px)`;
+            layer.innerHTML = `
+                <svg viewBox="0 0 240 160" width="100%" height="100%">
+                    ${isFront ? `
+                    <defs>
+                        <linearGradient id="chromeFront" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="40%" stop-color="#e2e8f0"/>
+                            <stop offset="55%" stop-color="#64748b"/>
+                            <stop offset="100%" stop-color="#ffffff"/>
+                        </linearGradient>
+                    </defs>` : ''}
+                    <ellipse cx="120" cy="80" rx="96" ry="60" fill="none" stroke="${strokeColor}" stroke-width="12"/>
+                    <ellipse cx="120" cy="57" rx="74" ry="28" fill="none" stroke="${strokeColor}" stroke-width="11"/>
+                    <ellipse cx="120" cy="80" rx="25" ry="58" fill="none" stroke="${strokeColor}" stroke-width="11"/>
+                </svg>
+            `;
+            core.appendChild(layer);
+        }
+
+        // چرخش تعاملی لوگو با لمس انگشت روی موبایل
+        const stage3d = document.getElementById('stage3d');
+        stage3d.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const rect = stage3d.getBoundingClientRect();
+            const x = ((touch.clientX - rect.left) / rect.width - 0.5) * 75;
+            const y = ((touch.clientY - rect.top) / rect.height - 0.5) * -75;
+            core.style.animation = 'none';
+            core.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+        stage3d.addEventListener('touchend', () => {
+            core.style.animation = 'autoSpin3D 6s ease-in-out infinite alternate';
+        });
+
+        // ۲. شبیه‌ساز استارت موتور و صدای واقعی سنتز شده V6 (بدون نیاز به فایل خارجی)
+        let gridSpeed = 0.9;
+        let neonRGB = [255, 30, 66];
+
+        function triggerEngine() {
+            const btn = document.getElementById('startBtn');
+            const bar = document.getElementById('rpmBar');
+            const txt = document.getElementById('rpmText');
+            const st = document.getElementById('rpmStatus');
+
+            btn.classList.add('revving');
+            if (navigator.vibrate) navigator.vibrate([80, 40, 160]);
+
+            // تولید صدای غرش استارت و گاز خوردن موتور با Web Audio API
+            try {
+                const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
+                const osc1 = ctxAudio.createOscillator();
+                const osc2 = ctxAudio.createOscillator();
+                const gain = ctxAudio.createGain();
+
+                osc1.type = 'sawtooth';
+                osc2.type = 'triangle';
+                const now = ctxAudio.currentTime;
+
+                osc1.frequency.setValueAtTime(55, now);
+                osc1.frequency.exponentialRampToValueAtTime(195, now + 0.55);
+                osc1.frequency.exponentialRampToValueAtTime(80, now + 1.4);
+
+                osc2.frequency.setValueAtTime(110, now);
+                osc2.frequency.exponentialRampToValueAtTime(390, now + 0.55);
+                osc2.frequency.exponentialRampToValueAtTime(160, now + 1.4);
+
+                gain.gain.setValueAtTime(0.01, now);
+                gain.gain.linearRampToValueAtTime(0.28, now + 0.2);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+
+                osc1.connect(gain);
+                osc2.connect(gain);
+                gain.connect(ctxAudio.destination);
+
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + 1.5);
+                osc2.stop(now + 1.5);
+            } catch (e) {}
+
+            // انیمیشن دور موتور و سرعت تونل سه‌بعدی
+            gridSpeed = 3.6;
+            bar.style.width = '96%';
+            txt.innerText = '7,200 RPM • SPORT';
+            st.innerText = 'حالت GR SPORT OVERDRIVE فعال شد! حداکثر توان توربو';
+
+            setTimeout(() => {
+                bar.style.width = '38%';
+                txt.innerText = '2,400 RPM • READY';
+                gridSpeed = 1.4;
+                btn.classList.remove('revving');
+            }, 1800);
+        }
+
+        // ۳. موتور گرافیکی تونل پرسپکتیو سه‌بعدی پرنور در پس‌زمینه
+        const canvas = document.getElementById('cyberCanvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, offset = 0, stars = [];
+
+        function resizeCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for (let i = 0; i < 55; i++) {
+            stars.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 2.2 + 0.6,
+                vy: -(Math.random() * 1.1 + 0.3)
+            });
+        }
+
+        function animateShowroom() {
+            ctx.clearRect(0, 0, w, h);
+            const horizon = h * 0.52;
+
+            // تابش افق نئونی
+            const grad = ctx.createRadialGradient(w / 2, horizon, 10, w / 2, horizon, w * 0.85);
+            grad.addColorStop(0, `rgba(${neonRGB[0]}, ${neonRGB[1]}, ${neonRGB[2]}, 0.28)`);
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, w, h);
+
+            // خطوط شبکه پرسپکتیو کف نمایشگاه (کاملاً پرنور و واضح روی موبایل)
+            ctx.strokeStyle = `rgba(${neonRGB[0]}, ${neonRGB[1]}, ${neonRGB[2]}, 0.32)`;
+            ctx.lineWidth = 1.2;
+
+            // خطوط شعاعی پرسپکتیو از مرکز افق
+            for (let i = -8; i <= 8; i++) {
+                ctx.beginPath();
+                ctx.moveTo(w / 2 + i * 25, horizon);
+                ctx.lineTo(w / 2 + i * 220, h);
+                ctx.stroke();
+            }
+
+            // خطوط افقی متحرک رو به جلو
+            offset = (offset + gridSpeed) % 35;
+            for (let y = 0; y < h - horizon; y += 35) {
+                const pos = horizon + ((y + offset) % (h - horizon));
+                const alpha = ((pos - horizon) / (h - horizon)) * 0.55;
+                ctx.strokeStyle = `rgba(${neonRGB[0]}, ${neonRGB[1]}, ${neonRGB[2]}, ${alpha})`;
+                ctx.beginPath();
+                ctx.moveTo(0, pos);
+                ctx.lineTo(w, pos);
+                ctx.stroke();
+            }
+
+            // ذرات نوری معلق
+            stars.forEach(s => {
+                s.y += s.vy * (gridSpeed * 0.8);
+                if (s.y < 0) { s.y = h; s.x = Math.random() * w; }
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${neonRGB[0]}, ${neonRGB[1]}, ${neonRGB[2]}, 0.75)`;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateShowroom);
+        }
+        animateShowroom();
+
+        // ۴. تغییر تم رنگی زنده همراه با رنگ تونل سه‌بعدی
+        function switchTheme(theme, r, g, b, el) {
+            if (theme === 'red') document.documentElement.removeAttribute('data-theme');
+            else document.documentElement.setAttribute('data-theme', theme);
+            neonRGB = [r, g, b];
+            document.querySelectorAll('.t-dot').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // ۵. بارگذاری خودکار تصاویر واقعی و باکیفیت هر مدل تویوتا
         document.querySelectorAll('img[data-wiki]').forEach(async (img) => {
             const title = img.getAttribute('data-wiki');
             try {
                 const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${title}`);
                 const data = await res.json();
                 if (data.thumbnail && data.thumbnail.source) {
-                    const hiRes = data.thumbnail.source.replace(/\/\d+px-/, '/960px-');
-                    img.src = hiRes;
+                    img.src = data.thumbnail.source.replace(/\/\d+px-/, '/960px-');
                 }
             } catch (e) {}
         });
 
-        // ۲. افکت سه‌بعدی چرخش لوگوی تویوتا با لمس یا حرکت موس
-        const logoStage = document.getElementById('logo3d');
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 18;
-            const y = (window.innerHeight / 3 - e.clientY) / 18;
-            logoStage.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-        });
-
-        // ۳. تغییر تم رنگی زنده
-        function setTheme(theme, el) {
-            if (theme === 'red') document.documentElement.removeAttribute('data-theme');
-            else document.documentElement.setAttribute('data-theme', theme);
-            document.querySelectorAll('.t-dot').forEach(d => d.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        // ۴. فیلتر دسته‌بندی خودروها
-        function filterCars(cat, btn) {
-            document.querySelectorAll('.f-tab').forEach(b => b.classList.remove('active'));
+        // ۶. فیلترها، محاسبه‌گر و مودال‌ها
+        function filterShowroom(cat, btn) {
+            document.querySelectorAll('.f-chip').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.querySelectorAll('.car-card').forEach(card => {
-                const cats = card.getAttribute('data-cat');
-                if (cat === 'all' || cats.includes(cat)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+            document.querySelectorAll('.cyber-card').forEach(c => {
+                c.style.display = (cat === 'all' || c.dataset.cat.includes(cat)) ? 'block' : 'none';
             });
         }
 
-        // ۵. باز کردن برگه کارشناسی و آپشن‌های خودرو
-        function openSpec(title, engine, gear, opt, status) {
-            document.getElementById('spTitle').innerText = title;
-            document.getElementById('spEngine').innerText = engine;
-            document.getElementById('spGear').innerText = gear;
-            document.getElementById('spOpt').innerText = opt;
-            document.getElementById('spStatus').innerText = status;
-            document.getElementById('specModal').classList.add('show');
-        }
-        function closeSpec() {
-            document.getElementById('specModal').classList.remove('show');
+        function showSpecs(title, eng, gear, opt, stat) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mEng').innerText = eng;
+            document.getElementById('mGear').innerText = gear;
+            document.getElementById('mOpt').innerText = opt;
+            document.getElementById('mStat').innerText = stat;
+            toggleModal('specModal', true);
         }
 
-        // ۶. محاسبه‌گر هوشمند واردات و ترخیص قشم
-        function updateCalc() {
-            const plate = document.getElementById('calcPlate').value;
-            const outTime = document.getElementById('outTime');
-            const outLoc = document.getElementById('outLoc');
-            const outDoc = document.getElementById('outDoc');
+        function toggleModal(id, show) {
+            document.getElementById(id).classList.toggle('show', show);
+        }
 
-            if (plate === 'qeshm') {
-                outTime.innerText = 'تحویل فوری (۲ تا ۵ روز)';
-                outLoc.innerText = 'نمایشگاه قشم';
-                outDoc.innerText = 'آماده شماره‌گذاری منطقه آزاد';
-            } else if (plate === 'melli') {
-                outTime.innerText = '۱۰ تا ۲۰ روز کاری';
-                outLoc.innerText = 'قشم / ارسال سراسر کشور';
-                outDoc.innerText = 'ترخیص قطعی و برگ سبز گمرک';
+        function calcDelivery() {
+            const v = document.getElementById('plateType').value;
+            const t = document.getElementById('cTime');
+            const l = document.getElementById('cLoc');
+            const d = document.getElementById('cDoc');
+            if (v === 'qeshm') {
+                t.innerText = '۲ تا ۵ روز کاری'; l.innerText = 'نمایشگاه قشم'; d.innerText = 'آماده شماره‌گذاری';
+            } else if (v === 'melli') {
+                t.innerText = '۱۰ تا ۲۰ روز کاری'; l.innerText = 'سراسر کشور'; d.innerText = 'ترخیص قطعی گمرک';
             } else {
-                outTime.innerText = '۱۵ تا ۳۰ روز کاری';
-                outLoc.innerText = 'بندر بهمن قشم';
-                outDoc.innerText = 'ثبت سفارش و حمل دریایی VIP';
+                t.innerText = '۱۵ تا ۲۵ روز کاری'; l.innerText = 'بندر بهمن قشم'; d.innerText = 'ثبت سفارش VIP';
             }
         }
 
-        // ۷. سامانه رهگیری کد پرونده
-        function loadSample(code, car, statusText, stepLevel) {
-            document.getElementById('trackInput').value = code;
-            document.getElementById('trCarName').innerText = car;
-            document.getElementById('trCurrentText').innerText = statusText;
-            const box = document.getElementById('trackBox');
-            box.classList.remove('active');
-            setTimeout(() => box.classList.add('active'), 80);
+        function setTrack(code, car, state) {
+            document.getElementById('trInput').value = code;
+            document.getElementById('tCar').innerText = car;
+            document.getElementById('tState').innerText = '۴. ' + state;
+            document.getElementById('trackOut').classList.add('show');
         }
-        function runTracker() {
-            const val = document.getElementById('trackInput').value.trim();
-            if (!val) return;
-            document.getElementById('trackBox').classList.add('active');
-        }
-
-        // ۸. کارت دیجیتال و کپی لینک
-        function openQR(show) {
-            document.getElementById('qrModal').classList.toggle('show', show);
-        }
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href);
-            const t = document.getElementById('toast');
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2500);
-        }
-
-        // ۹. موتور گرافیکی سه‌بعدی پس‌زمینه (شبکه پرسپکتیو کف نمایشگاه + ذرات نوری)
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let w, h, particles = [], gridOffset = 0;
-
-        function resize() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        for (let i = 0; i < 40; i++) {
-            particles.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                r: Math.random() * 1.8 + 0.4,
-                vy: -(Math.random() * 0.45 + 0.15),
-                alpha: Math.random() * 0.55 + 0.15
-            });
-        }
-
-        function renderBg() {
-            ctx.clearRect(0, 0, w, h);
-
-            // خطوط شبکه پرسپکتیو کف نمایشگاه
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            ctx.lineWidth = 1;
-            const horizon = h * 0.65;
-            gridOffset = (gridOffset + 0.35) % 40;
-
-            for (let y = horizon; y < h; y += 35) {
-                const py = y + (gridOffset * ((y - horizon) / (h - horizon)));
-                if (py < h) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, py);
-                    ctx.lineTo(w, py);
-                    ctx.stroke();
-                }
+        function searchTrack() {
+            if (document.getElementById('trInput').value.trim()) {
+                document.getElementById('trackOut').classList.add('show');
             }
-
-            // ذرات نوری معلق
-            particles.forEach(p => {
-                p.y += p.vy;
-                if (p.y < 0) { p.y = h; p.x = Math.random() * w; }
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-                ctx.fill();
-            });
-
-            requestAnimationFrame(renderBg);
         }
-        renderBg();
     </script>
 </body>
 </html>
